@@ -1,0 +1,655 @@
+{
+    "extensions": {
+        "eventsTimeline": {
+            "events": [
+            ],
+            "patterns": [
+            ],
+            "timelines": [
+                {
+                    "eventInstances": [
+                    ],
+                    "name": "Timeline_1",
+                    "order": 0,
+                    "patternInstances": [
+                    ]
+                }
+            ]
+        },
+        "recordAndReplay": {
+            "filters": {
+            }
+        }
+    },
+    "library": {
+        "classes": [
+            {
+                "className": "Whiteboard",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "title",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "backgroundColor",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "labelsVisible",
+                            "type": "BOOL"
+                        },
+                        {
+                            "name": "chatMessage",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "clear",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "ui_command",
+                            "type": "STRING"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "lastChatMessage",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "lastAction",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "ui_error",
+                            "type": "STRING"
+                        }
+                    ],
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "chat"
+                        },
+                        {
+                            "name": "snapshot",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "base64Png",
+                                            "type": "DATA"
+                                        }
+                                    ],
+                                    "name": "snapshotResult"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "clear"
+                        },
+                        {
+                            "name": "showLabels"
+                        },
+                        {
+                            "name": "hideLabels"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "type",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "height",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "fill",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "stroke",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "strokeWidth",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addShape",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "text",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "color",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "addText",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "base64",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "height",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addImage",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "url",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addImageFromUrl",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "remove",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "dx",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "dy",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "translate",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "moveTo",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "property",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "setStringProperty",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "property",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "setDoubleProperty",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "getElementIds",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "jsonArray",
+                                            "type": "STRING"
+                                        }
+                                    ],
+                                    "name": "elementIds"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "getElements",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "jsonArray",
+                                            "type": "STRING"
+                                        }
+                                    ],
+                                    "name": "elements"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "118ec52d-5aba-5ee0-baa7-ae34d567f092",
+                "version": ""
+            },
+            {
+                "className": "GetKey",
+                "color": 0,
+                "definition": {
+                    "outputs": [
+                        {
+                            "name": "Key",
+                            "type": "STRING"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "f2bab6a6-0bc5-57b4-87a7-9e35ed995e4c",
+                "version": ""
+            }
+        ]
+    },
+    "systemViews": [
+        {
+            "children": [
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "3225605c-1dfa-43a5-821f-865e06aa2170",
+                    "width": 180,
+                    "x": 932,
+                    "y": 547
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "2f448e46-4634-48a4-ade8-80c4e64defa2",
+                    "width": 316,
+                    "x": 936,
+                    "y": 321
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
+                    "width": 495,
+                    "x": 934,
+                    "y": 393
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "a327ba71-4157-4208-9e38-1987be393a7d",
+                    "width": 180,
+                    "x": 791.2000258445735,
+                    "y": 219.40000716447844
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "\"G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\Whiteboard.win64\\Whiteboard\\Whiteboard.exe\"",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "866218fd-a2f4-452a-b2c8-fd91587adb1d"
+                            }
+                        ]
+                    },
+                    "class": "118ec52d-5aba-5ee0-baa7-ae34d567f092",
+                    "comment": "",
+                    "height": 202,
+                    "name": "Whiteboard",
+                    "simulationTime": 5000,
+                    "uuid": "2370d114-8929-43c3-8380-5e0da0c02847",
+                    "width": 252,
+                    "x": 627,
+                    "y": 354
+                },
+                {
+                    "data": {
+                        "arguments": [
+                            {
+                                "text": "ethstrh"
+                            },
+                            {
+                                "x": "0"
+                            },
+                            {
+                                "y": "0"
+                            },
+                            {
+                                "color": ""
+                            }
+                        ],
+                        "selectedAgentUuid": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "selectedService": "addText"
+                    },
+                    "height": 188,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.servicecaller",
+                    "uuid": "72eff3aa-4394-4d82-a7b8-3d61a5e2f31d",
+                    "width": 246,
+                    "x": 216,
+                    "y": 442
+                },
+                {
+                    "data": {
+                        "entries": [
+                            ""
+                        ],
+                        "value_type": "STRING"
+                    },
+                    "height": 79,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "1a494423-4b10-4f7b-bfd0-8b3e1ce670d9",
+                    "width": 256,
+                    "x": 308,
+                    "y": 308
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "D:\\Apps\\Python3.12\\python.exe .\\main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "344f8d9e-b480-4b5c-80a8-7e5b0d442b6c"
+                            }
+                        ]
+                    },
+                    "class": "f2bab6a6-0bc5-57b4-87a7-9e35ed995e4c",
+                    "comment": "",
+                    "height": 100,
+                    "name": "GetKey",
+                    "simulationTime": 5000,
+                    "uuid": "e9ca3909-cfdd-4975-a07f-92e3dcbcce26",
+                    "width": 252,
+                    "x": 285.34139030612243,
+                    "y": 166.6827806122449
+                }
+            ],
+            "links": {
+                "others": [
+                    {
+                        "destination": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "destinationIO": {
+                            "name": "title",
+                            "type": "INPUT"
+                        },
+                        "source": "1a494423-4b10-4f7b-bfd0-8b3e1ce670d9",
+                        "sourceIO": {
+                            "name": "value",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "2f448e46-4634-48a4-ade8-80c4e64defa2",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "sourceIO": {
+                            "name": "lastChatMessage",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "sourceIO": {
+                            "name": "lastAction",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "3225605c-1dfa-43a5-821f-865e06aa2170",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "sourceIO": {
+                            "name": "ui_error",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "a327ba71-4157-4208-9e38-1987be393a7d",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "e9ca3909-cfdd-4975-a07f-92e3dcbcce26",
+                        "sourceIO": {
+                            "name": "Key",
+                            "type": "OUTPUT"
+                        }
+                    }
+                ]
+            },
+            "name": "Main view"
+        }
+    ]
+}
