@@ -833,7 +833,7 @@
                         "selectedAgentUuid": "2370d114-8929-43c3-8380-5e0da0c02847",
                         "selectedService": "addImageFromUrl"
                     },
-                    "height": 229,
+                    "height": 188,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.servicecaller",
                     "uuid": "decaad00-3065-44c7-80d3-35cefcc711ef",
@@ -851,18 +851,6 @@
                         "toOutput": "Key"
                     },
                     {
-                        "from": "Tableau",
-                        "fromInput": "in",
-                        "to": "Joueur",
-                        "toOutput": "Position/Couleur"
-                    },
-                    {
-                        "from": "ShowMatrice",
-                        "fromInput": "Matrice",
-                        "to": "Tableau",
-                        "toOutput": "Matrice"
-                    },
-                    {
                         "from": "ShowMatrice",
                         "fromInput": "Clear",
                         "to": "Joueur",
@@ -873,6 +861,18 @@
                         "fromInput": "clear",
                         "to": "Joueur",
                         "toOutput": "clear"
+                    },
+                    {
+                        "from": "ShowMatrice",
+                        "fromInput": "Matrice",
+                        "to": "Tableau",
+                        "toOutput": "Matrice"
+                    },
+                    {
+                        "from": "Tableau",
+                        "fromInput": "in",
+                        "to": "Joueur",
+                        "toOutput": "Position/Couleur"
                     }
                 ],
                 "others": [
