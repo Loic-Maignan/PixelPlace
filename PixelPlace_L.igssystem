@@ -576,36 +576,6 @@
                     "y": 308
                 },
                 {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 56,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
-                    "width": 495,
-                    "x": 934,
-                    "y": 393
-                },
-                {
-                    "data": {
-                        "entries": [
-                            "10;white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white"
-                        ],
-                        "value_type": "STRING"
-                    },
-                    "height": 231.69682623256378,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.writer",
-                    "uuid": "810e79b1-ea29-46cd-bdcc-47cd288d54c2",
-                    "width": 256,
-                    "x": -366.7147835279012,
-                    "y": 183.9332934529778
-                },
-                {
                     "agent": {
                         "instances": [
                             {
@@ -627,6 +597,60 @@
                     "width": 250,
                     "x": 11.51157862362993,
                     "y": 225.59163196785454
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
+                    "width": 495,
+                    "x": 934,
+                    "y": 393
+                },
+                {
+                    "data": {
+                        "arguments": [
+                            {
+                                "url": "file:///G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\PixelPlace\\Agents\\ShowMatrice\\matrice.png"
+                            },
+                            {
+                                "x": "100"
+                            },
+                            {
+                                "y": "0"
+                            }
+                        ],
+                        "selectedAgentUuid": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "selectedService": "addImageFromUrl"
+                    },
+                    "height": 229,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.servicecaller",
+                    "uuid": "c1908a90-5eae-4530-b841-282f15cf188a",
+                    "width": 246,
+                    "x": 349.95045476543305,
+                    "y": 497.79061724626786
+                },
+                {
+                    "data": {
+                        "entries": [
+                            "10;red,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,blue"
+                        ],
+                        "value_type": "STRING"
+                    },
+                    "height": 231.69682623256378,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "810e79b1-ea29-46cd-bdcc-47cd288d54c2",
+                    "width": 256,
+                    "x": -366.7147835279012,
+                    "y": 183.9332934529778
                 }
             ],
             "links": {

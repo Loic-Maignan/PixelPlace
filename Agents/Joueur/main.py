@@ -12,9 +12,9 @@ taille=100
 
 message = ""
 
-COULEURS = {"r": "red", "g": "green", "b": "blue"}
+COULEURS = {"r": "red", "g": "green", "b": "blue", "w":"white"}
 
-TOUCHES = ["1","2","3","4","5","6","7","8","9","0",",","backspace","enter","r","g","b"]
+TOUCHES = ["1","2","3","4","5","6","7","8","9","0",",","backspace","enter","r","g","b","w"]
 
 def input_callback(iop_type, name, value_type, value, my_data):
     global message
