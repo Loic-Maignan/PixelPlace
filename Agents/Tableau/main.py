@@ -3,22 +3,25 @@
 
 #
 #  main.py
-#  GetKey version 1.0
+#  Name version 1.0
 
 import sys
 import ingescape as igs
-import keyboard
-import time
 
-def key_event(e):
-    print(f"Touche appuyée: {e.name}")
-    igs.output_set_string("Key", e.name)
-    
-    if e.name == 'esc':
-        print("Quitter le programme")
-        keyboard.unhook_all()
+TAILLE = "10;"
+tableau = [0 for i in range(10*10)] 
+
+def input_callback(iop_type, name, value_type, value, my_data):
+    igs.info(f"Input {name} of type {value_type} has been written with value '{value}' and user data '{my_data}'")
+    position,couleur = value.split(',')
+    tableau[int(position)] = int(couleur)
+    message = TAILLE
+    for i in tableau:
+        message += str(i) + ","
         
+    igs.output_set_string("Matrice", message)
 
+        
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("usage: python3 main.py agent_name network_device port")
@@ -28,19 +31,18 @@ if __name__ == "__main__":
             print(f" {device}")
         exit(0)
 
-    igs.agent_set_name("GetKey")
+    igs.agent_set_name("Tableau")
     igs.definition_set_version("1.0")
     igs.log_set_console(True)
     igs.log_set_file(True, None)
     igs.set_command_line(sys.executable + " " + " ".join(sys.argv))
-
-
-    igs.output_create("Key", igs.STRING_T, None)
+    
+    igs.input_create("in", igs.STRING_T, None)
+    igs.observe_input("in", input_callback, None)
+    
+    igs.output_create("Matrice", igs.STRING_T, None)
 
     igs.start_with_device(sys.argv[1], int(sys.argv[2]))
+    input('')
 
-    keyboard.on_press(key_event)
-    keyboard.wait('esc')
     igs.stop()
-        
-
