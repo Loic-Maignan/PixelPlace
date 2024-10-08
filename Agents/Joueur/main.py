@@ -12,7 +12,9 @@ taille=10
 
 message = ""
 
-TOUCHES = ["1","2","3","4","5","6","7","8","9","0",",","backspace","enter"]
+COULEURS = {"r": "red", "g": "green", "b": "blue"}
+
+TOUCHES = ["1","2","3","4","5","6","7","8","9","0",",","backspace","enter","r","g","b"]
 
 def input_callback(iop_type, name, value_type, value, my_data):
     global message
@@ -24,12 +26,12 @@ def input_callback(iop_type, name, value_type, value, my_data):
             position = int(ligne)*taille + int(colonne)
             igs.output_set_string("Position/Couleur", str(position) + "," + couleur)
             message = ""
+        elif value in COULEURS:
+            message += COULEURS[value]
         else:
             message += value
-        # arguments_list = (message, 600., 400., 0.)
         igs.info(f"Input {name} written")
         igs.output_set_impulsion("clear")
-        # igs.service_call("Whiteboard", "addText", arguments_list, "")
         igs.service_call("Whiteboard", "chat", message, "")
         
 
