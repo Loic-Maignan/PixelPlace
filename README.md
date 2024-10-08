@@ -1,7 +1,5 @@
 # PixelPlace
 
-# PixelPlace
-
 python -m venv EnvPixelPlace
 source EnvPixelPlace/Scripts/activate
 pip install -r requirment.txt
