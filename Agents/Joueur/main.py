@@ -8,7 +8,7 @@
 import sys
 import ingescape as igs
 
-taille=10
+taille=100
 
 message = ""
 

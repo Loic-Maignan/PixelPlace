@@ -8,14 +8,14 @@
 import sys
 import ingescape as igs
 
-TAILLE = "10;"
-tableau = ["white" for i in range(10*10)] 
+TAILLE = 100
+tableau = ["white" for i in range(TAILLE*TAILLE)] 
 
 def input_callback(iop_type, name, value_type, value, my_data):
     igs.info(f"Input {name} of type {value_type} has been written with value '{value}' and user data '{my_data}'")
     position,couleur = value.split(',')
     tableau[int(position)] = couleur
-    message = TAILLE
+    message = str(TAILLE) + ";"
     for i in tableau:
         message += str(i) + ","
         

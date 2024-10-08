@@ -16,7 +16,7 @@ def matrice_callback(iop_type, name, value_type, value, my_data):
     for val in value:
         i += 1
         ligne.append(val)
-        if i == 10:
+        if i == taille:
             matrice.append(ligne)
             i = 0
             ligne = []
@@ -31,13 +31,13 @@ def show_matrice(matrice,tailleMatrice):
             posy = 100 +taillePixelY*i
             for j,colone in enumerate(ligne):
                 posx = 100 + taillePixelX*j
-                arguments_list = ("rectangle",posx,posy,taillePixelX,taillePixelY,colone,"black",1.0)
+                arguments_list = ("rectangle",posx,posy,taillePixelX,taillePixelY,colone,"black",max(float(taillePixelX/100),0.5))
                 igs.service_call("Whiteboard", "addShape", arguments_list, "")
     elif MatriceOld != matrice:
             for i,ligne in enumerate(matrice):
                 for j,colone in enumerate(ligne):
                     if MatriceOld[i][j] != colone:
-                        arguments_list = ((i+1)*(j+1)-1,"fill",colone)
+                        arguments_list = (i*tailleMatrice+j,"fill",colone)
                         igs.service_call("Whiteboard", "setStringProperty", arguments_list, "")
     MatriceOld = matrice
 

@@ -430,27 +430,90 @@
                 "plugin": "ingescape_class",
                 "uuid": "f2bab6a6-0bc5-57b4-87a7-9e35ed995e4c",
                 "version": ""
+            },
+            {
+                "className": "Tableau",
+                "color": 0,
+                "definition": {
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "402725c3-d158-4d35-ad0e-176a3aa436a9",
+                "version": "1.0"
+            },
+            {
+                "className": "Name",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "Key",
+                            "type": "STRING"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "Position/Couleur",
+                            "type": "STRING"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "95c92f5d-67ad-40ae-b59b-bfc95a790765",
+                "version": "1.0"
+            },
+            {
+                "className": "Joueur",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "Key",
+                            "type": "STRING"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "Position/Couleur",
+                            "type": "STRING"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "9cae374d-a4ec-4ef3-a760-265354daca5b",
+                "version": "1.0"
+            },
+            {
+                "className": "ShowMatrice",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "Matrice",
+                            "type": "STRING"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
+                "version": "1.0"
             }
         ]
     },
     "systemViews": [
         {
             "children": [
-                {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 56,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "3225605c-1dfa-43a5-821f-865e06aa2170",
-                    "width": 180,
-                    "x": 932,
-                    "y": 547
-                },
                 {
                     "data": {
                         "data_decoder": "BINARY",
@@ -473,11 +536,11 @@
                         "proto_file_path": "",
                         "string_decoder": "PLAIN_TEXT"
                     },
-                    "height": 56,
+                    "height": 130.6184748542568,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
-                    "width": 495,
+                    "width": 511.474209676426,
                     "x": 934,
                     "y": 393
                 },
@@ -491,14 +554,37 @@
                     "height": 56,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "3225605c-1dfa-43a5-821f-865e06aa2170",
+                    "width": 180,
+                    "x": 948.9587447051395,
+                    "y": 550.2302370866933
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "a327ba71-4157-4208-9e38-1987be393a7d",
                     "width": 180,
-                    "x": 791.2000258445735,
-                    "y": 219.40000716447844
+                    "x": -554.0257484346446,
+                    "y": 539.658632887591
                 },
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.41.149",
+                                "isAttachedToCircle": false,
+                                "mac": "14:F6:D8:3F:B7:BD",
+                                "uuid": "d385ae08-c5c5-4d58-9a01-af83a8532370"
+                            },
                             {
                                 "commandLine": "\"G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\Whiteboard.win64\\Whiteboard\\Whiteboard.exe\"",
                                 "hostname": "FireFall-PC",
@@ -506,6 +592,13 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "866218fd-a2f4-452a-b2c8-fd91587adb1d"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
                             }
                         ]
                     },
@@ -521,49 +614,59 @@
                 },
                 {
                     "data": {
+                        "entries": [
+                        ],
+                        "value_type": "IMPULSION"
+                    },
+                    "height": 44,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "88a177bf-eb43-470e-b20f-c939a19c2470",
+                    "width": 256,
+                    "x": -50.82888690393224,
+                    "y": 80.20271620351122
+                },
+                {
+                    "data": {
                         "arguments": [
-                            {
-                                "text": "ethstrh"
-                            },
-                            {
-                                "x": "0"
-                            },
-                            {
-                                "y": "0"
-                            },
-                            {
-                                "color": ""
-                            }
                         ],
                         "selectedAgentUuid": "2370d114-8929-43c3-8380-5e0da0c02847",
-                        "selectedService": "addText"
+                        "selectedService": "getElements"
                     },
-                    "height": 188,
+                    "height": 75,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.servicecaller",
                     "uuid": "72eff3aa-4394-4d82-a7b8-3d61a5e2f31d",
                     "width": 246,
-                    "x": 216,
-                    "y": 442
+                    "x": 308.90422490539663,
+                    "y": 65.13772773234274
                 },
                 {
                     "data": {
-                        "entries": [
-                            ""
-                        ],
-                        "value_type": "STRING"
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
                     },
-                    "height": 79,
+                    "height": 56,
                     "name": "",
-                    "tool": "com.ingescape.circle.tool.writer",
-                    "uuid": "1a494423-4b10-4f7b-bfd0-8b3e1ce670d9",
-                    "width": 256,
-                    "x": 308,
-                    "y": 308
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "e0b49bb9-3daa-4367-a2b7-525c52279e95",
+                    "width": 180,
+                    "x": -43.493627339848445,
+                    "y": 230.69075441000984
                 },
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.41.149",
+                                "isAttachedToCircle": false,
+                                "mac": "14:F6:D8:3F:B7:BD",
+                                "uuid": "e6dbe368-5a3e-4a44-8c94-736922b37b60"
+                            },
                             {
                                 "commandLine": "D:\\Apps\\Python3.12\\python.exe .\\main.py Ethernet 5670",
                                 "hostname": "FireFall-PC",
@@ -571,6 +674,13 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "344f8d9e-b480-4b5c-80a8-7e5b0d442b6c"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "3225c28d-ead3-4678-a39a-ac083d47ed38"
                             }
                         ]
                     },
@@ -581,24 +691,159 @@
                     "simulationTime": 5000,
                     "uuid": "e9ca3909-cfdd-4975-a07f-92e3dcbcce26",
                     "width": 252,
-                    "x": 348.98005013028603,
-                    "y": 37.26831874328687
+                    "x": -581.9096735129663,
+                    "y": 425.05182052663486
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.41.149",
+                                "isAttachedToCircle": false,
+                                "mac": "14:F6:D8:3F:B7:BD",
+                                "uuid": "56eeca55-beb9-4df1-a5c0-664951eb5d88"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "41fcad80-f06d-4ff6-8224-896d3a9a9286"
+                            }
+                        ]
+                    },
+                    "class": "9cae374d-a4ec-4ef3-a760-265354daca5b",
+                    "comment": "",
+                    "height": 114,
+                    "name": "Joueur",
+                    "simulationTime": 5000,
+                    "uuid": "b916d8b8-6a0e-4322-9f28-fb756030fe32",
+                    "width": 250,
+                    "x": -248.60016440428706,
+                    "y": 424.123823698526
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "81dd0e1d-c4a4-4814-b26a-8ccf115b406b",
+                    "width": 180,
+                    "x": -218.7728490983252,
+                    "y": 545.2536876730463
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.41.149",
+                                "isAttachedToCircle": false,
+                                "mac": "14:F6:D8:3F:B7:BD",
+                                "uuid": "a15643ae-041f-47a0-a846-60c622aee41a"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "c83da1ef-f5d0-4573-94b6-1d4ae2812592"
+                            }
+                        ]
+                    },
+                    "class": "402725c3-d158-4d35-ad0e-176a3aa436a9",
+                    "comment": "",
+                    "height": 100,
+                    "name": "Tableau",
+                    "simulationTime": 5000,
+                    "uuid": "0a0d546e-a570-439d-ab2e-50bbc9cb76ff",
+                    "width": 250,
+                    "x": 41.23672283884105,
+                    "y": 421.4968225878408
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "11d9da2f-e747-4541-a85d-4b0e46a4736a"
+                            }
+                        ]
+                    },
+                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
+                    "comment": "",
+                    "height": 100,
+                    "name": "ShowMatrice",
+                    "simulationTime": 5000,
+                    "uuid": "e7bc79e6-6381-4a1e-9193-4eefd8d12ad0",
+                    "width": 250,
+                    "x": 344.7449511547277,
+                    "y": 420.1903981701884
+                },
+                {
+                    "data": {
+                        "entries": [
+                            "10;white,white,white,white,white,white,white,white,white,white,white,white,red,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,"
+                        ],
+                        "value_type": "STRING"
+                    },
+                    "height": 417.3738449800137,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "f0452dd3-7e63-4d20-82c0-0611e220f841",
+                    "width": 571.0079016433232,
+                    "x": -676.8844007262975,
+                    "y": 199.51834055128063
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 271.7830828504552,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "c4d19ff8-2a5f-4eb2-8423-3c22b3e02a03",
+                    "width": 623.1689835598527,
+                    "x": 56.84161718386679,
+                    "y": 605.2402185416381
                 }
             ],
             "links": {
-                "others": [
+                "mappings": [
                     {
-                        "destination": "2370d114-8929-43c3-8380-5e0da0c02847",
-                        "destinationIO": {
-                            "name": "title",
-                            "type": "INPUT"
-                        },
-                        "source": "1a494423-4b10-4f7b-bfd0-8b3e1ce670d9",
-                        "sourceIO": {
-                            "name": "value",
-                            "type": "OUTPUT"
-                        }
+                        "from": "Joueur",
+                        "fromInput": "Key",
+                        "to": "GetKey",
+                        "toOutput": "Key"
                     },
+                    {
+                        "from": "Tableau",
+                        "fromInput": "in",
+                        "to": "Joueur",
+                        "toOutput": "Position/Couleur"
+                    },
+                    {
+                        "from": "ShowMatrice",
+                        "fromInput": "Matrice",
+                        "to": "Tableau",
+                        "toOutput": "Matrice"
+                    }
+                ],
+                "others": [
                     {
                         "destination": "2f448e46-4634-48a4-ade8-80c4e64defa2",
                         "destinationIO": {
@@ -644,6 +889,66 @@
                         "source": "e9ca3909-cfdd-4975-a07f-92e3dcbcce26",
                         "sourceIO": {
                             "name": "Key",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "72eff3aa-4394-4d82-a7b8-3d61a5e2f31d",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "88a177bf-eb43-470e-b20f-c939a19c2470",
+                        "sourceIO": {
+                            "name": "value",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "81dd0e1d-c4a4-4814-b26a-8ccf115b406b",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "b916d8b8-6a0e-4322-9f28-fb756030fe32",
+                        "sourceIO": {
+                            "name": "Position/Couleur",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "c4d19ff8-2a5f-4eb2-8423-3c22b3e02a03",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "0a0d546e-a570-439d-ab2e-50bbc9cb76ff",
+                        "sourceIO": {
+                            "name": "Matrice",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "e0b49bb9-3daa-4367-a2b7-525c52279e95",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "b916d8b8-6a0e-4322-9f28-fb756030fe32",
+                        "sourceIO": {
+                            "name": "clear",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "e7bc79e6-6381-4a1e-9193-4eefd8d12ad0",
+                        "destinationIO": {
+                            "name": "Matrice",
+                            "type": "INPUT"
+                        },
+                        "source": "f0452dd3-7e63-4d20-82c0-0611e220f841",
+                        "sourceIO": {
+                            "name": "value",
                             "type": "OUTPUT"
                         }
                     }
