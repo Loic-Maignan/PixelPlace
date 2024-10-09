@@ -37,8 +37,8 @@ if __name__ == "__main__":
     igs.log_set_file(True, None)
     igs.set_command_line(sys.executable + " " + " ".join(sys.argv))
     
-    igs.input_create("in", igs.STRING_T, None)
-    igs.observe_input("in", input_callback, None)
+    igs.input_create("Position/Couleur", igs.STRING_T, None)
+    igs.observe_input("Position/Couleur", input_callback, None)
     
     igs.output_create("Matrice", igs.STRING_T, None)
 

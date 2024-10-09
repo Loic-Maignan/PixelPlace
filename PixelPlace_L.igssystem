@@ -437,6 +437,10 @@
                 "definition": {
                     "inputs": [
                         {
+                            "name": "Clear",
+                            "type": "IMPULSION"
+                        },
+                        {
                             "name": "Matrice",
                             "type": "STRING"
                         }
@@ -576,29 +580,6 @@
                     "y": 308
                 },
                 {
-                    "agent": {
-                        "instances": [
-                            {
-                                "commandLine": "D:\\Apps\\Python3.12\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.1.173",
-                                "isAttachedToCircle": false,
-                                "mac": "58:11:22:7E:5C:15",
-                                "uuid": "19c3c50d-21ce-41d2-a019-3d81c4496d01"
-                            }
-                        ]
-                    },
-                    "class": "35cc3ecd-7b8b-45f5-b965-8306d9bcb28a",
-                    "comment": "",
-                    "height": 100,
-                    "name": "ShowMatrice",
-                    "simulationTime": 5000,
-                    "uuid": "1718d3ff-fa8b-42d2-82fd-1e913b1b0f31",
-                    "width": 250,
-                    "x": 11.51157862362993,
-                    "y": 225.59163196785454
-                },
-                {
                     "data": {
                         "data_decoder": "BINARY",
                         "msg_type": "",
@@ -629,7 +610,7 @@
                         "selectedAgentUuid": "2370d114-8929-43c3-8380-5e0da0c02847",
                         "selectedService": "addImageFromUrl"
                     },
-                    "height": 229,
+                    "height": 188,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.servicecaller",
                     "uuid": "c1908a90-5eae-4530-b841-282f15cf188a",
@@ -638,9 +619,32 @@
                     "y": 497.79061724626786
                 },
                 {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "5600af38-d5fd-47a0-83a9-e9b01647dbc2"
+                            }
+                        ]
+                    },
+                    "class": "35cc3ecd-7b8b-45f5-b965-8306d9bcb28a",
+                    "comment": "",
+                    "height": 114,
+                    "name": "ShowMatrice",
+                    "simulationTime": 5000,
+                    "uuid": "26172d34-f0cd-44dd-a51b-62b03b4780e1",
+                    "width": 250,
+                    "x": -23.344760404261606,
+                    "y": 236.5210463927242
+                },
+                {
                     "data": {
                         "entries": [
-                            "10;red,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,blue"
+                            "10;white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white"
                         ],
                         "value_type": "STRING"
                     },
@@ -716,7 +720,7 @@
                         }
                     },
                     {
-                        "destination": "1718d3ff-fa8b-42d2-82fd-1e913b1b0f31",
+                        "destination": "26172d34-f0cd-44dd-a51b-62b03b4780e1",
                         "destinationIO": {
                             "name": "Matrice",
                             "type": "INPUT"

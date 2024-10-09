@@ -5,7 +5,7 @@ import sys
 import ingescape as igs
 from PIL import Image
 import os
-
+import pygetwindow as gw
 
 color_mapping = {
     'white': (255, 255, 255),
@@ -16,20 +16,50 @@ color_mapping = {
 }
 
 MatriceOld = None
+Taille = None
 cpt  = 0
+WindowW = 0
+WindowH = 0
 FileName = ""
 
+
+
+def get_specific_window_size(window_title):
+    windows = gw.getWindowsWithTitle(window_title)
+    
+    if not windows:
+        return None
+    
+    window = windows[0]
+    
+    width, height = window.width, window.height
+
+    if width < 1300:
+        width = int(width/2.5)
+    else:
+        width = int(width/2)
+    if height < 1200 :
+        height = int(height/1.5)
+    else:
+        height = int(height/1.2)
+    
+    return (width, height)
+def checkSize_callback(iop_type, name, value_type, value, my_data):
+    global WindowH, WindowW
+    w, h = get_specific_window_size("Whiteboard")
+    if WindowW != w or WindowH != h:
+        WindowH = h
+        WindowW = w
+        create_IMG()
+
+
 def clear_callback(iop_type, name, value_type, value, my_data):
-    global FileName
-    if FileName == "":
-        FileName = "init.png"
-    arguments_list = ()
-    arguments_list = ("file:///" + os.path.abspath(FileName),100.0,0.0)
-    igs.service_call("Whiteboard", "addImageFromUrl", arguments_list, "")
+    show_Img(FileName)
 
 def matrice_callback(iop_type, name, value_type, value, my_data):
+    global Taille,MatriceOld
     value = str(value).split(";")
-    taille = int(value[0])
+    Taille = int(value[0])
     value = value[1].split(",")
     ligne = []
     matrice = []
@@ -37,59 +67,50 @@ def matrice_callback(iop_type, name, value_type, value, my_data):
     for val in value:
         i += 1
         ligne.append(val)
-        if i == taille:
+        if i == Taille:
             matrice.append(ligne)
             i = 0
             ligne = []
-    createIMG(matrice,taille)
-    #show_matrice(matrice,taille)
+    MatriceOld = matrice
+    print(matrice)
+    create_IMG()
 
-def createIMG(matrice,tailleMatrice):
-    global cpt,FileName
-    taillePixelX = int(500/tailleMatrice)
-    taillePixelY = int(300/tailleMatrice)
-    border_size = 1
-    image_ligne = len(matrice[0]) * (taillePixelX + border_size) + border_size
-    image_colone = len(matrice) * (taillePixelY + border_size) + border_size
-
-    img = Image.new('RGB', (image_ligne, image_colone), (0, 0, 0)) 
-
-    for row_idx, row in enumerate(matrice):
-        for col_idx, color in enumerate(row):
-            rgb_color = color_mapping[color]
-            start_x = col_idx * (taillePixelX + border_size) + border_size
-            start_y = row_idx * (taillePixelY + border_size) + border_size
-            for i in range(taillePixelX):
-                for j in range(taillePixelY):
-                    img.putpixel((start_x + i, start_y + j), rgb_color)
-    FileName = "Img/matrice" + str(cpt) + ".png"
-    img.save(FileName)
-    cpt += 1
-
-    arguments_list = ()
-    igs.service_call("Whiteboard", "clear", arguments_list, "")
-    arguments_list = ("file:///" + os.path.abspath(FileName),100.0,0.0)
+def show_Img(fileName):
+    arguments_list = ("file:///" + os.path.abspath(fileName),WindowW/3,0.0)
     igs.service_call("Whiteboard", "addImageFromUrl", arguments_list, "")
 
+def create_IMG():
+    global cpt, FileName
 
-def show_matrice(matrice,tailleMatrice):
-    global MatriceOld
     if MatriceOld == None:
-        taillePixelX = 500/tailleMatrice
-        taillePixelY = 300/tailleMatrice
-        for i,ligne in enumerate(matrice):
-            posy = 100 +taillePixelY*i
-            for j,colone in enumerate(ligne):
-                posx = 100 + taillePixelX*j
-                arguments_list = ("rectangle",posx,posy,taillePixelX,taillePixelY,colone,"black",max(float(taillePixelX/100),0.5))
-                igs.service_call("Whiteboard", "addShape", arguments_list, "")
-    elif MatriceOld != matrice:
-            for i,ligne in enumerate(matrice):
-                for j,colone in enumerate(ligne):
-                    if MatriceOld[i][j] != colone:
-                        arguments_list = (i*tailleMatrice+j,"fill",colone)
-                        igs.service_call("Whiteboard", "setStringProperty", arguments_list, "")
-    MatriceOld = matrice
+        show_Img(FileName)
+    else:
+        taillePixelX = int(WindowW/Taille)
+        taillePixelY = int(WindowH/Taille)
+        border_size = 1
+        image_ligne = len(MatriceOld[0]) * (taillePixelX + border_size) + border_size
+        image_colone = len(MatriceOld) * (taillePixelY + border_size) + border_size
+
+        img = Image.new('RGB', (image_ligne, image_colone), (0, 0, 0)) 
+
+        for row_idx, row in enumerate(MatriceOld):
+            for col_idx, color in enumerate(row):
+                rgb_color = color_mapping[color]
+                start_x = col_idx * (taillePixelX + border_size) + border_size
+                start_y = row_idx * (taillePixelY + border_size) + border_size
+                for i in range(taillePixelX):
+                    for j in range(taillePixelY):
+                        img.putpixel((start_x + i, start_y + j), rgb_color)
+        FileName = "Img/matrice" + str(cpt) + ".png"
+        img.save(FileName)
+        cpt += 1
+
+        arguments_list = ()
+        igs.service_call("Whiteboard", "clear", arguments_list, "")
+        show_Img(FileName)
+
+        
+
 
         
 if __name__ == "__main__":
@@ -114,6 +135,8 @@ if __name__ == "__main__":
 
     igs.input_create("Matrice", igs.STRING_T, None)
     igs.input_create("Clear", igs.IMPULSION_T, None)
+    igs.input_create("CheckSize", igs.IMPULSION_T, None)
+    igs.observe_input("CheckSize", checkSize_callback, None)
     igs.observe_input("Matrice", matrice_callback, None)
     igs.observe_input("Clear", clear_callback, None)
 

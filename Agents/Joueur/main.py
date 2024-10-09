@@ -31,7 +31,7 @@ def input_callback(iop_type, name, value_type, value, my_data):
         else:
             message += value
         igs.info(f"Input {name} written")
-        igs.output_set_impulsion("clear")
+        igs.output_set_impulsion("Clear")
         igs.service_call("Whiteboard", "chat", message, "")
         
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     igs.observe_input("Key", input_callback, None)
     
     igs.output_create("Position/Couleur", igs.STRING_T, None)
-    igs.output_create("clear", igs.IMPULSION_T, None)
+    igs.output_create("Clear", igs.IMPULSION_T, None)
 
     input('')
     
