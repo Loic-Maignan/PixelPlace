@@ -220,6 +220,7 @@ if __name__ == "__main__":
                 igs.agent_set_name(user)
                 igs.service_call("Whiteboard", "chat", f"Changement de nom: {user}", "")
                 user_var.set(user)
+                image_canvas.focus_set()
 
             # Création de la fenêtre principale en plein écran
             window = tk.Tk()
@@ -269,13 +270,17 @@ if __name__ == "__main__":
 
 
             # Redimensionner l'image pour l'adapter au Canvas
-            image_taille = 730
+            image_taille = 730 
             image_redimensionnee = image_originale.resize((ajuster_taille(image_taille,proportion_x), ajuster_taille(image_taille,proportion_y)), Image.LANCZOS)  # Ajusté à la taille de la fenêtre
             image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
-            image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+            image_id = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
 
             # Taille des cases de la grille dans l'image originale
             taille_case = image_taille / taille  # 100x100 cases dans l'image
+            scale_factor = 1.0  # Facteur de zoom initial
+            
+            # Variables pour le déplacement
+            drag_data = {"x": 0, "y": 0, "item": None}
 
             def obtenir_case_grille(event):
                 # Coordonnées du clic sur le canvas
@@ -283,6 +288,9 @@ if __name__ == "__main__":
                 y = event.y
 
                 print(f"on a x : {x} on a taille case = {taille_case} donc on est colonne : {x // taille_case}")
+                
+                position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+                x, y = -(position[0])+x, -(position[1])+y
 
                 # Calcul des indices de la case (ligne, colonne) dans l'image originale
                 case_y = int(x // taille_case)  # Indice de la colonne
@@ -299,10 +307,95 @@ if __name__ == "__main__":
                 arguments = (str(position), couleur)
                 igs.service_call("Tableau", "ajouter", arguments,"")
                 
+            def zoom(event):
+                """Zoomer à l'endroit de la souris en utilisant la molette."""
+                global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id
                 
+                # Facteur de zoom : zoom in (1.1) ou zoom out (0.9)
+                scale = 1.1 if event.delta > 0 else 0.9
+                scale_factor *= scale
+                if scale_factor < 1:
+                    scale_factor = 1
+                if scale_factor > 2:
+                    scale_factor = 2
+                # Obtenir la position actuelle de la souris
+                x = image_canvas.canvasx(event.x)
+                y = image_canvas.canvasy(event.y)
 
-            # Associer l'événement clic au Canvas
-            image_canvas.bind("<Button-1>", obtenir_case_grille)
+                # Taille de l'image après zoom
+                new_width = int(image_taille * scale_factor)
+                new_height = int(image_taille * scale_factor)
+
+                # Redimensionner l'image
+                image_redimensionnee = image_originale.resize((new_width, new_height), Image.LANCZOS)
+                image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
+
+                # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
+                image_canvas.delete(image_id)
+                image_id_tmp = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+
+                # Ajuster la taille des cases
+                taille_case = new_width / 100
+
+                # Redéfinir la région de scroll
+                image_canvas.config(scrollregion=image_canvas.bbox("all"))
+                image_id = image_id_tmp
+
+            mouvement = False
+            # Déplacement de l'image avec la souris
+            def commencer_drag(event):
+                """Début du drag"""
+                drag_data["item"] = image_id
+                drag_data["x"] = event.x
+                drag_data["y"] = event.y
+
+            def drag_image(event):
+                """Déplacer l'image lors du drag"""
+                global mouvement
+                dx = event.x - drag_data["x"]
+                dy = event.y - drag_data["y"]
+                if dx != 0 and dy != 0:
+                    mouvement = True
+                print("move : ",drag_data["item"], dx, dy)
+                position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+                x, y = position[0], position[1]
+                print(f"Position actuelle de l'image: x = {x}, y = {y}")
+                print(taille_case*taille)
+                if x <= 732 - taille_case*taille  and dx < 0 :
+                    dx =0
+                if y <= 732 - taille_case*taille and dy < 0 :
+                    dy = 0
+                if y >= 2 and dy > 0 :
+                    dy = 0
+                if x >= 2 and dx > 0 :
+                    dx = 0
+                # Déplacer l'image dans le canvas
+                image_canvas.move(drag_data["item"], dx, dy)
+                
+                # Mettre à jour les coordonnées de la souris pour le prochain mouvement
+                drag_data["x"] = event.x
+                drag_data["y"] = event.y
+
+            def finir_drag(event):
+                """Fin du drag"""
+                global mouvement
+                if mouvement == False:
+                    obtenir_case_grille(event)
+
+                drag_data["item"] = None
+                drag_data["x"] = 0
+                drag_data["y"] = 0
+                mouvement = False
+                                                                                                  
+            #image_canvas.bind("<MouseWheel>", lambda event: image_canvas.yview_scroll(int(-1*(event.delta/120)), "units"))
+            #image_canvas.bind("<Shift-MouseWheel>", lambda event: image_canvas.xview_scroll(int(-1*(event.delta/120)), "units"))
+            
+            # Associer l'événement clic au Canvas            
+            image_canvas.bind("<ButtonPress-1>", commencer_drag)
+            image_canvas.bind("<B1-Motion>", drag_image)
+            image_canvas.bind("<ButtonRelease-1>", finir_drag)
+
+            image_canvas.bind("<Control-MouseWheel>", zoom)
             previsu = None
             
             # Fonction déclenchée lorsque la souris passe au-dessus du canvas
@@ -312,8 +405,10 @@ if __name__ == "__main__":
                     image_canvas.delete(previsu)
                 except:
                     pass
+                
                 x = event.x
                 y = event.y
+                print(image_canvas.xview(),image_canvas.yview())
                 case_y = int(x // taille_case)
                 case_x = int(y // taille_case)
                 print(f"Survol - Coordonnées: x={x}, y={y}, case x : {case_x}, case y : {case_y}")
@@ -325,8 +420,9 @@ if __name__ == "__main__":
             image_canvas.bind("<Motion>", survol_canvas)
             
             # Liste de couleurs à afficher sur le Canvas
-            couleurs = ["#000000", "#808080", "#C0C0C0", "#FFFFFF", "#FF0000", "#800000", "#FFFF00", "#808000", 
-            "#00FF00", "#008000", "#00FFFF", "#008080", "#0000FF", "#000080", "#FF00FF", "#800080"]
+            couleurs = ["#FFFFFF", "#C0C0C0", "#808080", "#000000", "#FF99CC", "#FF0000", "#FF6600", "#CC6600", 
+                        "#FFFF00", "#00FF00", "#33CC33", "#00FFFF", "#3333FF", "#0000FF", "#FF00FF", "#800080"]
+            
             # Petit Canvas pour la sélection de la couleur
             taille_carré = 40
             couleur_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(len(couleurs)*taille_carré, proportion_x), height=ajuster_taille(taille_carré, proportion_y))
@@ -345,7 +441,7 @@ if __name__ == "__main__":
             couleur_canvas.bind("<Button-1>", choisir_couleur)
 
             # Variable pour stocker la couleur sélectionnée
-            couleur_var = tk.StringVar(value="noir")
+            couleur_var = tk.StringVar(value="#000000")
 
             # Coordonnées X et Y
             x_label = tk.Label(window, text="x :", font=("Arial", ajuster_taille(16, proportion_y)))
