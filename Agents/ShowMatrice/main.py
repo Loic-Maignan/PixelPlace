@@ -6,6 +6,7 @@ import ingescape as igs
 from PIL import Image
 import os
 import pygetwindow as gw
+from io import BytesIO
 
 color_mapping = {
     'white': (255, 255, 255),
@@ -127,14 +128,25 @@ def create_IMG():
                         img.putpixel((start_x + i, start_y + j), rgb_color)
         FileName = "Img/matrice" + str(cpt) + ".png"
         img.save(FileName)
+        # Convertir l'image en chaîne d'octets
+        buffer = BytesIO()  # Crée un buffer en mémoire
+        img.save(buffer, format='PNG')  # Sauvegarde l'image dans le buffer au format PNG
+
+        # Récupérer les octets de l'image
+        image_bytes = buffer.getvalue()
+
+        # Exemple : Utiliser les octets pour un traitement supplémentaire
+        print("L'image est convertie en chaîne d'octets.")
+        igs.service_call("ClientJoueur", "Mise_a_jour_matrice", image_bytes,"")
+
+        # Optionnel : Fermer le buffer
+        buffer.close()
+        
         cpt += 1
 
         arguments_list = ()
         igs.service_call("Whiteboard", "clear", arguments_list, "")
         show_Img(FileName)
-
-        
-
 
         
 if __name__ == "__main__":
@@ -189,7 +201,7 @@ if __name__ == "__main__":
     igs.observe_input("CheckSize", checkSize_callback, None)
     igs.observe_input("Matrice", matrice_callback, None)
     igs.observe_input("Clear", clear_callback, None)
-
+    
     igs.start_with_device(device, int(sys.argv[2]))
 
     

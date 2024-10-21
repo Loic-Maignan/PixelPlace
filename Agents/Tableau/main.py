@@ -9,7 +9,7 @@ import sys
 import ingescape as igs
 
 TAILLE = 100
-tableau = ["white" for i in range(TAILLE*TAILLE)] 
+tableau = ["#FFFFFF" for i in range(TAILLE*TAILLE)] 
 agent_name = "Tableau"
 device = None
 

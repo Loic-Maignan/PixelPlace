@@ -18,13 +18,16 @@ import sys
 
 import tkinter as tk
 from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
+import io
 
 from new import *
 
 taille = 100
+posx_canvas = 0
+posy_canvas = 0
 
 port = 5670
-agent_name = "Joueur1"
+agent_name = "ClientJoueur"
 device = None
 verbose = False
 is_interrupted = False
@@ -110,6 +113,13 @@ def on_freeze_callback(is_frozen, my_data):
         # add code here if needed
     except:
         print(traceback.format_exc())
+      
+def Mise_a_jour_matrice(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
+    print(arguments)
+    print(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}",my_data,token)
+    igs.info(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}")
+    image = arguments[0]
+    nouvelle_photo(image)
 
 if __name__ == "__main__":
 
@@ -175,10 +185,14 @@ if __name__ == "__main__":
 
     igs.observe_agent_events(on_agent_event_callback, agent)
     igs.observe_freeze(on_freeze_callback, agent)
+    
+    igs.service_init("Mise_a_jour_matrice", Mise_a_jour_matrice, agent)
+    igs.service_arg_add("Mise_a_jour_matrice", "matrice", igs.DATA_T)
 
     igs.start_with_device(device, port)
     # catch SIGINT handler after starting agent
     signal.signal(signal.SIGINT, signal_handler)
+    
 
     if interactive_loop:
         print_usage_help()
@@ -193,6 +207,29 @@ if __name__ == "__main__":
             def quitter(event=None):
                 window.quit()
 
+            def nouvelle_photo(image):
+                global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id, image_recu
+                image_stream = io.BytesIO(image)
+                image_recu = Image.open(image_stream)  # Image de la grille
+                # Taille de l'image après zoom
+                new_width = int(image_taille * scale_factor)
+                new_height = int(image_taille * scale_factor)
+
+                # Redimensionner l'image
+                image_redimensionnee = image_recu.resize((new_width, new_height), Image.LANCZOS)
+                image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
+
+                # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
+                image_canvas.delete(image_id)
+                image_id_tmp = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+
+                # Ajuster la taille des cases
+                taille_case = new_width / 100
+
+                # Redéfinir la région de scroll
+                image_canvas.config(scrollregion=image_canvas.bbox("all"))
+                image_id = image_id_tmp
+                
             # Fonction pour gérer la sélection de la couleur
             def choisir_couleur(event):
                 x = event.x
@@ -200,20 +237,6 @@ if __name__ == "__main__":
                 couleur_selectionnee = couleur_canvas.itemcget(couleur_canvas.find_closest(x, y), "fill")
                 print(f"Couleur choisie: {couleur_selectionnee}")
                 couleur_var.set(couleur_selectionnee)
-            
-            def valider():
-                x = x_entry.get()
-                y = y_entry.get()
-                couleur = couleur_var.get()
-                print(f"Coordonnées: x={x}, y={y}, couleur={couleur}")
-                x_entry.delete(0, tk.END)
-                y_entry.delete(0, tk.END)
-                message = f"Coordonnées: x={x}, y={y}, couleur={couleur}"
-                igs.service_call("Whiteboard", "chat", message, "")
-                position = int(x)*taille + int(y)
-                print(f"Position: {position}")
-                arguments = (str(position), couleur)
-                igs.service_call("Tableau", "ajouter", arguments,"")
             
             def changer_name(event):
                 user = user_var.get()
@@ -242,28 +265,37 @@ if __name__ == "__main__":
                 return int(taille_base * proportion)
             
             # Titre principal centré
-            titre_text = "WHITEBOARD"
+            titre_text = "PixelPlace"
             titre_label = tk.Label(window, text=titre_text, font=("Comic Sans MS", ajuster_taille(20, proportion_x)))
 
             # Calcul pour centrer le titre horizontalement
-            titre_width = ajuster_taille(20 * len(titre_text), proportion_x)  # Largeur estimée du texte
+            titre_width = ajuster_taille(12 * len(titre_text), proportion_x)  # Largeur estimée du texte
             titre_label.place(x=(wx - titre_width) / 2, y=ajuster_taille(1, proportion_y))
             
             user_text = "Utilisateur: "
             user_label = tk.Label(window, text=user_text, font=("Arial", ajuster_taille(16, proportion_y)))
-            user_label.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(1, proportion_y))
+            user_label.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(10, proportion_y))
             
-            user_var = tk.StringVar(value="Joueur1")
+            user_var = tk.StringVar(value=str(igs.agent_uuid()[-4:]))
             user_entry = tk.Entry(window, width=ajuster_taille(10, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)), textvariable=user_var)
-            user_entry.place(x=ajuster_taille(100, proportion_x), y=ajuster_taille(1, proportion_y))
+            user_entry.place(x=ajuster_taille(110, proportion_x), y=ajuster_taille(10, proportion_y))
             
             user_entry.bind("<Return>", changer_name)
+            
+            timer_text = "Timer: "
+            timer_label = tk.Label(window, text=timer_text, font=("Arial", ajuster_taille(16, proportion_y)))
+            timer_label.place(x=ajuster_taille(1200, proportion_x), y=ajuster_taille(1, proportion_y))
+            
+            timer_var = tk.StringVar(value="00:00")
+            timer_label2 = tk.Label(window, font=("Arial", ajuster_taille(16, proportion_y)), textvariable=timer_var)
+            timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(1, proportion_y))
 
             # Grand Canvas pour l'image ou le dessin
             image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
-            image_canvas.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(50, proportion_y))
+            image_canvas.place(x=ajuster_taille((wx-ajuster_taille(730, proportion_x))/2, proportion_x), y=ajuster_taille(50, proportion_y))
 
             # Charger l'image PNG
+            image_recu = None
             nom_image = "init.png"
             image_originale = Image.open(nom_image)  # Image de la grille
             image_originale_width, image_originale_height = image_originale.size
@@ -279,8 +311,25 @@ if __name__ == "__main__":
             taille_case = image_taille / taille  # 100x100 cases dans l'image
             scale_factor = 1.0  # Facteur de zoom initial
             
+            
+            
             # Variables pour le déplacement
             drag_data = {"x": 0, "y": 0, "item": None}
+            timer = 0
+            
+            def appel_image():
+                image = igs.service_call("Tableau", "demande_image", "", "")
+                print(image)
+                window.after(1000, appel_image)
+                
+            window.after(1000, appel_image)
+            def updateClock():
+                global timer
+                timer-=1
+                timer_var.set(f"00:{timer}")
+                if timer > 0:
+                    window.after(1000, updateClock)
+                
 
             def obtenir_case_grille(event):
                 # Coordonnées du clic sur le canvas
@@ -318,6 +367,7 @@ if __name__ == "__main__":
                     scale_factor = 1
                 if scale_factor > 2:
                     scale_factor = 2
+                zoom_var.set(f'{scale_factor:.1f}')
                 # Obtenir la position actuelle de la souris
                 x = image_canvas.canvasx(event.x)
                 y = image_canvas.canvasy(event.y)
@@ -327,7 +377,7 @@ if __name__ == "__main__":
                 new_height = int(image_taille * scale_factor)
 
                 # Redimensionner l'image
-                image_redimensionnee = image_originale.resize((new_width, new_height), Image.LANCZOS)
+                image_redimensionnee = image_recu.resize((new_width, new_height), Image.LANCZOS)
                 image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
 
                 # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
@@ -356,11 +406,10 @@ if __name__ == "__main__":
                 dy = event.y - drag_data["y"]
                 if dx != 0 and dy != 0:
                     mouvement = True
-                print("move : ",drag_data["item"], dx, dy)
+
                 position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
                 x, y = position[0], position[1]
-                print(f"Position actuelle de l'image: x = {x}, y = {y}")
-                print(taille_case*taille)
+
                 if x <= 732 - taille_case*taille  and dx < 0 :
                     dx =0
                 if y <= 732 - taille_case*taille and dy < 0 :
@@ -378,17 +427,17 @@ if __name__ == "__main__":
 
             def finir_drag(event):
                 """Fin du drag"""
-                global mouvement
+                global mouvement, timer
                 if mouvement == False:
-                    obtenir_case_grille(event)
+                    if timer == 0 :
+                        timer = 11
+                        window.after(1000, updateClock)
+                        obtenir_case_grille(event)
 
                 drag_data["item"] = None
                 drag_data["x"] = 0
                 drag_data["y"] = 0
                 mouvement = False
-                                                                                                  
-            #image_canvas.bind("<MouseWheel>", lambda event: image_canvas.yview_scroll(int(-1*(event.delta/120)), "units"))
-            #image_canvas.bind("<Shift-MouseWheel>", lambda event: image_canvas.xview_scroll(int(-1*(event.delta/120)), "units"))
             
             # Associer l'événement clic au Canvas            
             image_canvas.bind("<ButtonPress-1>", commencer_drag)
@@ -408,9 +457,22 @@ if __name__ == "__main__":
                 
                 x = event.x
                 y = event.y
-                print(image_canvas.xview(),image_canvas.yview())
                 case_y = int(x // taille_case)
                 case_x = int(y // taille_case)
+                position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+                x, y = -(position[0])+x, -(position[1])+y
+                y_var.set(str(int(y // taille_case)))
+                x_var.set(str(int(x // taille_case)))
+                if int(y // taille_case) < 0 :
+                    y_var.set("0")
+                if int(x // taille_case) < 0 :
+                    x_var.set("0")
+                if int(y // taille_case) > 99 :
+                    y_var.set("99")
+                if int(x // taille_case) > 99 :
+                    x_var.set("99")
+                    
+                
                 print(f"Survol - Coordonnées: x={x}, y={y}, case x : {case_x}, case y : {case_y}")
                 couleur = couleur_var.get()
                 previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+2, case_x*taille_case+2, case_y*taille_case+taille_case+2, case_x*taille_case+taille_case+2, fill=couleur, outline="")
@@ -426,7 +488,7 @@ if __name__ == "__main__":
             # Petit Canvas pour la sélection de la couleur
             taille_carré = 40
             couleur_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(len(couleurs)*taille_carré, proportion_x), height=ajuster_taille(taille_carré, proportion_y))
-            couleur_canvas.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(800, proportion_y))
+            couleur_canvas.place(x=ajuster_taille((wx-ajuster_taille(len(couleurs)*taille_carré, proportion_x)) / 2, proportion_x), y=ajuster_taille(800, proportion_y))
             
             # Création des carrés de couleur dans le petit Canvas
             carré_taille = ajuster_taille(taille_carré, proportion_x)
@@ -445,25 +507,25 @@ if __name__ == "__main__":
 
             # Coordonnées X et Y
             x_label = tk.Label(window, text="x :", font=("Arial", ajuster_taille(16, proportion_y)))
-            x_label.place(x=ajuster_taille(650, proportion_x), y=ajuster_taille(810, proportion_y))
+            x_label.place(x=ajuster_taille(300, proportion_x), y=ajuster_taille(10, proportion_y))
 
-            x_entry = tk.Entry(window, width=ajuster_taille(10, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)))
-            x_entry.place(x=ajuster_taille(680, proportion_x), y=ajuster_taille(810, proportion_y))
+            x_var = tk.StringVar(value="0")
+            x_label_var = tk.Label(window,textvariable=x_var, font=("Arial", ajuster_taille(16, proportion_y)))
+            x_label_var.place(x=ajuster_taille(330, proportion_x), y=ajuster_taille(10, proportion_y))
 
             y_label = tk.Label(window, text="y :", font=("Arial", ajuster_taille(16, proportion_y)))
-            y_label.place(x=ajuster_taille(800, proportion_x), y=ajuster_taille(810, proportion_y))
+            y_label.place(x=ajuster_taille(390, proportion_x), y=ajuster_taille(10, proportion_y))
 
-            y_entry = tk.Entry(window, width=ajuster_taille(10, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)))
-            y_entry.place(x=ajuster_taille(830, proportion_x), y=ajuster_taille(810, proportion_y))
+            y_var = tk.StringVar(value="0")
+            y_label_var = tk.Label(window,textvariable=y_var , font=("Arial", ajuster_taille(16, proportion_y)))
+            y_label_var.place(x=ajuster_taille(420, proportion_x), y=ajuster_taille(10, proportion_y))
 
-            couleur_label = tk.Label(window, text="Couleur :", font=("Arial", ajuster_taille(16, proportion_y)))
-            couleur_label.place(x=ajuster_taille(1050, proportion_x), y=ajuster_taille(810, proportion_y))
-            
-            couleur_label2 = tk.Label(window, textvariable=couleur_var, font=("Arial", ajuster_taille(16, proportion_y)))
-            couleur_label2.place(x=ajuster_taille(1140, proportion_x), y=ajuster_taille(810, proportion_y))
-            # Bouton Valider
-            valider_button = tk.Button(window, text="VALIDER", width=ajuster_taille(18, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)), command=valider)
-            valider_button.place(x=ajuster_taille(1290, proportion_x), y=ajuster_taille(810, proportion_y))
+            zoom_label = tk.Label(window, text="zoom :", font=("Arial", ajuster_taille(16, proportion_y)))
+            zoom_label.place(x=ajuster_taille(480, proportion_x), y=ajuster_taille(10, proportion_y))
+
+            zoom_var = tk.StringVar(value="1.0")
+            zoom_label_var = tk.Label(window,textvariable=zoom_var , font=("Arial", ajuster_taille(16, proportion_y)))
+            zoom_label_var.place(x=ajuster_taille(580, proportion_x), y=ajuster_taille(10, proportion_y))
 
             # Lancement de la boucle principale
             window.mainloop()
