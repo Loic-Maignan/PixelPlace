@@ -263,7 +263,7 @@ if __name__ == "__main__":
             image_canvas.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(50, proportion_y))
 
             # Charger l'image PNG
-            nom_image = "matrice6.png"
+            nom_image = "init.png"
             image_originale = Image.open(nom_image)  # Image de la grille
             image_originale_width, image_originale_height = image_originale.size
 
@@ -325,8 +325,8 @@ if __name__ == "__main__":
             image_canvas.bind("<Motion>", survol_canvas)
             
             # Liste de couleurs à afficher sur le Canvas
-            couleurs = ["black", "grey", "#C0C0C0", "white", "red", "#800000", "yellow", "#808000", 
-                        "green", "#008000", "#00FFFF", "#008080", "blue", "#000080", "pink", "violet"]
+            couleurs = ["#000000", "#808080", "#C0C0C0", "#FFFFFF", "#FF0000", "#800000", "#FFFF00", "#808000", 
+            "#00FF00", "#008000", "#00FFFF", "#008080", "#0000FF", "#000080", "#FF00FF", "#800080"]
             # Petit Canvas pour la sélection de la couleur
             taille_carré = 40
             couleur_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(len(couleurs)*taille_carré, proportion_x), height=ajuster_taille(taille_carré, proportion_y))

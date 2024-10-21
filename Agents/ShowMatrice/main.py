@@ -22,6 +22,16 @@ WindowW = 0
 WindowH = 0
 FileName = ""
 
+def hex_to_rgb(hex_value):
+    # Supprimer le symbole '#' si présent
+    hex_value = hex_value.lstrip('#')
+    
+    # Extraire les composants rouges, verts et bleus
+    r = int(hex_value[0:2], 16)  # Composant rouge
+    g = int(hex_value[2:4], 16)  # Composant vert
+    b = int(hex_value[4:6], 16)  # Composant bleu
+    
+    return (r, g, b)
 
 
 def get_specific_window_size(window_title):
@@ -95,7 +105,10 @@ def create_IMG():
 
         for row_idx, row in enumerate(MatriceOld):
             for col_idx, color in enumerate(row):
-                rgb_color = color_mapping[color]
+                try :
+                    rgb_color = hex_to_rgb(color)
+                except:
+                    rgb_color = color_mapping[color]
                 start_x = col_idx * (taillePixelX + border_size) + border_size
                 start_y = row_idx * (taillePixelY + border_size) + border_size
                 for i in range(taillePixelX):
