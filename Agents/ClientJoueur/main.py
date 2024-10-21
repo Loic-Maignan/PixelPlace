@@ -17,6 +17,7 @@ import traceback
 import sys
 
 import tkinter as tk
+from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
 
 from new import *
 
@@ -258,9 +259,71 @@ if __name__ == "__main__":
             user_entry.bind("<Return>", changer_name)
 
             # Grand Canvas pour l'image ou le dessin
-            image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(1530, proportion_x), height=ajuster_taille(730, proportion_y))
+            image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
             image_canvas.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(50, proportion_y))
 
+            # Charger l'image PNG
+            nom_image = "matrice6.png"
+            image_originale = Image.open(nom_image)  # Image de la grille
+            image_originale_width, image_originale_height = image_originale.size
+
+
+            # Redimensionner l'image pour l'adapter au Canvas
+            image_taille = 730
+            image_redimensionnee = image_originale.resize((ajuster_taille(image_taille,proportion_x), ajuster_taille(image_taille,proportion_y)), Image.LANCZOS)  # Ajusté à la taille de la fenêtre
+            image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
+            image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+
+            # Taille des cases de la grille dans l'image originale
+            taille_case = image_taille / taille  # 100x100 cases dans l'image
+
+            def obtenir_case_grille(event):
+                # Coordonnées du clic sur le canvas
+                x = event.x
+                y = event.y
+
+                print(f"on a x : {x} on a taille case = {taille_case} donc on est colonne : {x // taille_case}")
+
+                # Calcul des indices de la case (ligne, colonne) dans l'image originale
+                case_y = int(x // taille_case)  # Indice de la colonne
+                case_x = int(y // taille_case)  # Indice de la ligne
+
+                print(f"Case cliquée - colonne: {case_x}, ligne: {case_y}")
+                print(f"X : {x},y : {y}")
+                couleur = couleur_var.get()
+                print(f"Coordonnées: x={case_x}, y={case_y}, couleur={couleur}")
+                message = f"Coordonnées: x={str(case_x)}, y={str(case_y)}, couleur={couleur}"
+                igs.service_call("Whiteboard", "chat", message, "")
+                position = int(case_x)*taille + int(case_y)
+                print(f"Position: {position}")
+                arguments = (str(position), couleur)
+                igs.service_call("Tableau", "ajouter", arguments,"")
+                
+                
+
+            # Associer l'événement clic au Canvas
+            image_canvas.bind("<Button-1>", obtenir_case_grille)
+            previsu = None
+            
+            # Fonction déclenchée lorsque la souris passe au-dessus du canvas
+            def survol_canvas(event):
+                global previsu
+                try : 
+                    image_canvas.delete(previsu)
+                except:
+                    pass
+                x = event.x
+                y = event.y
+                case_y = int(x // taille_case)
+                case_x = int(y // taille_case)
+                print(f"Survol - Coordonnées: x={x}, y={y}, case x : {case_x}, case y : {case_y}")
+                couleur = couleur_var.get()
+                previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+2, case_x*taille_case+2, case_y*taille_case+taille_case+2, case_x*taille_case+taille_case+2, fill=couleur, outline="")
+                previsu = previsu_tmp
+                
+            
+            image_canvas.bind("<Motion>", survol_canvas)
+            
             # Liste de couleurs à afficher sur le Canvas
             couleurs = ["black", "grey", "#C0C0C0", "white", "red", "#800000", "yellow", "#808000", 
                         "green", "#008000", "#00FFFF", "#008080", "blue", "#000080", "pink", "violet"]
@@ -305,8 +368,6 @@ if __name__ == "__main__":
             # Bouton Valider
             valider_button = tk.Button(window, text="VALIDER", width=ajuster_taille(18, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)), command=valider)
             valider_button.place(x=ajuster_taille(1290, proportion_x), y=ajuster_taille(810, proportion_y))
-
-
 
             # Lancement de la boucle principale
             window.mainloop()
