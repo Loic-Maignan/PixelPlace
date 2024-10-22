@@ -187,7 +187,10 @@ if __name__ == "__main__":
     for fichier in os.listdir("Img/"):
         chemin_fichier = os.path.join("Img/", fichier)
         if os.path.isfile(chemin_fichier):
-            os.remove(chemin_fichier)
+            try : 
+                os.remove(chemin_fichier)
+            except:
+                pass
 
     igs.agent_set_name("ShowMatrice")
     igs.definition_set_version("1.0")

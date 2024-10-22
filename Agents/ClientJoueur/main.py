@@ -119,7 +119,7 @@ def Mise_a_jour_matrice(sender_agent_name, sender_agent_uuid, service_name, argu
     print(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}",my_data,token)
     igs.info(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}")
     image = arguments[0]
-    nouvelle_photo(image)
+    nouvelle_image(image)
 
 if __name__ == "__main__":
 
@@ -193,6 +193,7 @@ if __name__ == "__main__":
     # catch SIGINT handler after starting agent
     signal.signal(signal.SIGINT, signal_handler)
     
+    igs.service_call("ShowMatrice", "welbye",None,None)
 
     if interactive_loop:
         print_usage_help()
@@ -205,9 +206,11 @@ if __name__ == "__main__":
     else:
         while (not is_interrupted) and igs.is_started():
             def quitter(event=None):
+                igs.service_call("ShowMatrice", "welbye",None,None)
                 window.quit()
+                exit(0)
 
-            def nouvelle_photo(image):
+            def nouvelle_image(image):
                 global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id, image_recu
                 image_stream = io.BytesIO(image)
                 image_recu = Image.open(image_stream)  # Image de la grille
@@ -220,8 +223,12 @@ if __name__ == "__main__":
                 image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
 
                 # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
+                       
+                position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+                posx, posy = position[0], position[1]
+           
                 image_canvas.delete(image_id)
-                image_id_tmp = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+                image_id_tmp = image_canvas.create_image(posx, posy, anchor="nw", image=image_canvas_image)
 
                 # Ajuster la taille des cases
                 taille_case = new_width / 100
@@ -241,7 +248,7 @@ if __name__ == "__main__":
             def changer_name(event):
                 user = user_var.get()
                 igs.agent_set_name(user)
-                igs.service_call("Whiteboard", "chat", f"Changement de nom: {user}", "")
+                igs.service_call("ShowMatice", "change_name", user, "")
                 user_var.set(user)
                 image_canvas.focus_set()
 
@@ -381,8 +388,10 @@ if __name__ == "__main__":
                 image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
 
                 # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
+                # position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+                # posx, posy = position[0], position[1]
                 image_canvas.delete(image_id)
-                image_id_tmp = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+                image_id_tmp = image_canvas.create_image(2,2, anchor="nw", image=image_canvas_image)
 
                 # Ajuster la taille des cases
                 taille_case = new_width / 100
@@ -427,24 +436,35 @@ if __name__ == "__main__":
 
             def finir_drag(event):
                 """Fin du drag"""
-                global mouvement, timer
+                global mouvement, timer, image_id
                 if mouvement == False:
                     if timer == 0 :
                         timer = 11
                         window.after(1000, updateClock)
                         obtenir_case_grille(event)
+                
+                position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
+
+                posx, posy = position[0], position[1]
+                move_x = round(posx / taille_case) * taille_case
+                move_y = round(posy / taille_case) * taille_case
+                
+                image_canvas.delete(image_id)
+                image_id_tmp = image_canvas.create_image(move_x+2,move_y+2, anchor="nw", image=image_canvas_image)
+                image_id = image_id_tmp
+                print(f"Fin du drag - déplacement: x={move_x}, y={move_y}, position: {posx}, {posy}")
 
                 drag_data["item"] = None
                 drag_data["x"] = 0
                 drag_data["y"] = 0
                 mouvement = False
-            
+                    
             # Associer l'événement clic au Canvas            
             image_canvas.bind("<ButtonPress-1>", commencer_drag)
             image_canvas.bind("<B1-Motion>", drag_image)
             image_canvas.bind("<ButtonRelease-1>", finir_drag)
 
-            image_canvas.bind("<Control-MouseWheel>", zoom)
+            image_canvas.bind("<MouseWheel>", zoom)
             previsu = None
             
             # Fonction déclenchée lorsque la souris passe au-dessus du canvas
@@ -457,10 +477,14 @@ if __name__ == "__main__":
                 
                 x = event.x
                 y = event.y
+                
+                
                 case_y = int(x // taille_case)
                 case_x = int(y // taille_case)
                 position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
                 x, y = -(position[0])+x, -(position[1])+y
+                print(f"position souris : {x}, {y} , taille de case = {taille_case}")
+                
                 y_var.set(str(int(y // taille_case)))
                 x_var.set(str(int(x // taille_case)))
                 if int(y // taille_case) < 0 :
@@ -475,7 +499,7 @@ if __name__ == "__main__":
                 
                 print(f"Survol - Coordonnées: x={x}, y={y}, case x : {case_x}, case y : {case_y}")
                 couleur = couleur_var.get()
-                previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+2, case_x*taille_case+2, case_y*taille_case+taille_case+2, case_x*taille_case+taille_case+2, fill=couleur, outline="")
+                previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+2, case_x*taille_case+2, (case_y+1)*taille_case+2, (case_x+1)*taille_case+2, fill=couleur, outline="")
                 previsu = previsu_tmp
                 
             
@@ -498,6 +522,9 @@ if __name__ == "__main__":
                 y1 = 0
                 y2 = ajuster_taille(taille_carré, proportion_y)
                 couleur_canvas.create_rectangle(x1, y1, x2, y2, fill=couleur, outline="")
+            
+            def survol_fermer(event):
+                croix_label.configure(bg='red')
 
             # Ajout d'un événement pour capturer le clic sur le nuancier
             couleur_canvas.bind("<Button-1>", choisir_couleur)
@@ -526,6 +553,13 @@ if __name__ == "__main__":
             zoom_var = tk.StringVar(value="1.0")
             zoom_label_var = tk.Label(window,textvariable=zoom_var , font=("Arial", ajuster_taille(16, proportion_y)))
             zoom_label_var.place(x=ajuster_taille(580, proportion_x), y=ajuster_taille(10, proportion_y))
+            
+            croix_label = tk.Label(window,text="X" , width=ajuster_taille(2,proportion_x), height=ajuster_taille(1,proportion_y), font=("Arial", ajuster_taille(16, proportion_y)))
+            croix_label.place(x=ajuster_taille(1510, proportion_x), y=ajuster_taille(0, proportion_y))
+            
+            croix_label.bind("<Enter>", survol_fermer)
+            croix_label.bind("<Button-1>", quitter)
+            croix_label.bind("<Leave>", lambda event : croix_label.configure(bg="#F0F0F0"))
 
             # Lancement de la boucle principale
             window.mainloop()
