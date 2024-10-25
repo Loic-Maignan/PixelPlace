@@ -618,6 +618,18 @@
                 "plugin": "ingescape_class",
                 "uuid": "c8cec264-0b95-489f-967a-f9b47f9386cb",
                 "version": ""
+            },
+            {
+                "className": "Chat",
+                "color": 0,
+                "definition": {
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "ce03673a-0a38-4478-a506-c5857e3f5fa9",
+                "version": ""
             }
         ]
     },
@@ -627,6 +639,28 @@
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "127.0.0.1",
+                                "isAttachedToCircle": false,
+                                "uuid": "21a1a606-a467-44ea-bdb0-768ac56d72a6"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "172.17.153.4",
+                                "isAttachedToCircle": false,
+                                "uuid": "f5a2c097-d380-41ac-ae99-b7ef5e00c1cf"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "11d9da2f-e747-4541-a85d-4b0e46a4736a"
+                            },
                             {
                                 "commandLine": "D:\\Apps\\Python3.12\\python.exe ./main.py Ethernet 5670",
                                 "hostname": "FireFall-PC",
@@ -642,28 +676,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "9a7da47e-ea77-4cab-8b68-3133155a1bdb"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "mac": "80:FA:5B:7D:B7:D8",
-                                "uuid": "11d9da2f-e747-4541-a85d-4b0e46a4736a"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "172.17.153.4",
-                                "isAttachedToCircle": false,
-                                "uuid": "f5a2c097-d380-41ac-ae99-b7ef5e00c1cf"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "127.0.0.1",
-                                "isAttachedToCircle": false,
-                                "uuid": "21a1a606-a467-44ea-bdb0-768ac56d72a6"
                             }
                         ]
                     },
@@ -680,6 +692,14 @@
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "41fcad80-f06d-4ff6-8224-896d3a9a9286"
+                            },
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
                                 "hostname": "DESKTOP-8LMA51O",
@@ -703,14 +723,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "73a3c114-87ef-4c60-9e78-a2c89b591358"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "mac": "80:FA:5B:7D:B7:D8",
-                                "uuid": "41fcad80-f06d-4ff6-8224-896d3a9a9286"
                             }
                         ]
                     },
@@ -727,6 +739,14 @@
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "3225c28d-ead3-4678-a39a-ac083d47ed38"
+                            },
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
                                 "hostname": "DESKTOP-8LMA51O",
@@ -758,14 +778,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "34195132-126f-4c0f-a4b3-86ed26f024f4"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "mac": "80:FA:5B:7D:B7:D8",
-                                "uuid": "3225c28d-ead3-4678-a39a-ac083d47ed38"
                             }
                         ]
                     },
@@ -815,6 +827,28 @@
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
                                 "hostname": "DESKTOP-8LMA51O",
+                                "ip": "127.0.0.1",
+                                "isAttachedToCircle": false,
+                                "uuid": "0a7b0219-1b2b-48e2-b27e-17600398dc56"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "172.17.153.4",
+                                "isAttachedToCircle": false,
+                                "uuid": "075bd702-8cea-443d-b6c6-470ab870978b"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
                                 "ip": "192.168.41.149",
                                 "isAttachedToCircle": false,
                                 "mac": "14:F6:D8:3F:B7:BD",
@@ -835,28 +869,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "8a86ce60-398f-4cda-af0e-3b2254842277"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "mac": "80:FA:5B:7D:B7:D8",
-                                "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "172.17.153.4",
-                                "isAttachedToCircle": false,
-                                "uuid": "075bd702-8cea-443d-b6c6-470ab870978b"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "127.0.0.1",
-                                "isAttachedToCircle": false,
-                                "uuid": "0a7b0219-1b2b-48e2-b27e-17600398dc56"
                             }
                         ]
                     },
@@ -919,6 +931,28 @@
                     "agent": {
                         "instances": [
                             {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "127.0.0.1",
+                                "isAttachedToCircle": false,
+                                "uuid": "67f95cdb-0136-4724-aff4-2642ce6aba09"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "172.17.153.4",
+                                "isAttachedToCircle": false,
+                                "uuid": "575545a7-5a07-470b-8b4f-6fd703962b2c"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "c83da1ef-f5d0-4573-94b6-1d4ae2812592"
+                            },
+                            {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Wi-Fi 5670",
                                 "hostname": "DESKTOP-8LMA51O",
                                 "ip": "192.168.41.149",
@@ -941,28 +975,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "58:11:22:7E:5C:15",
                                 "uuid": "7b250645-0e6f-441d-a40f-b0013a685898"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "mac": "80:FA:5B:7D:B7:D8",
-                                "uuid": "c83da1ef-f5d0-4573-94b6-1d4ae2812592"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "172.17.153.4",
-                                "isAttachedToCircle": false,
-                                "uuid": "575545a7-5a07-470b-8b4f-6fd703962b2c"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "127.0.0.1",
-                                "isAttachedToCircle": false,
-                                "uuid": "67f95cdb-0136-4724-aff4-2642ce6aba09"
                             }
                         ]
                     },
@@ -975,21 +987,6 @@
                     "width": 250,
                     "x": -517.1228166306281,
                     "y": 318.2529832142408
-                },
-                {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 597.7355222012759,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "29269ccf-3c75-4a05-8f42-e30b2c5678c2",
-                    "width": 865.7133051144654,
-                    "x": -1289.752818357234,
-                    "y": 734.8522970474498
                 },
                 {
                     "data": {
@@ -1012,6 +1009,13 @@
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
                                 "hostname": "DESKTOP-8LMA51O",
+                                "ip": "127.0.0.1",
+                                "isAttachedToCircle": false,
+                                "uuid": "26627e8f-d285-4d2b-b985-65052477d664"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
                                 "ip": "172.17.153.4",
                                 "isAttachedToCircle": false,
                                 "uuid": "83464c9b-3cca-4472-ac75-e2150d788bdc"
@@ -1023,13 +1027,6 @@
                                 "isAttachedToCircle": false,
                                 "mac": "80:FA:5B:7D:B7:D8",
                                 "uuid": "102bd827-876d-4dc4-b4c8-eb326ddc01d6"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "127.0.0.1",
-                                "isAttachedToCircle": false,
-                                "uuid": "26627e8f-d285-4d2b-b985-65052477d664"
                             }
                         ]
                     },
@@ -1066,6 +1063,52 @@
                     "width": 80,
                     "x": -1112.7853437454526,
                     "y": 122.4968572742992
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "d21f8133-5beb-4f71-ade0-165219d0e36a"
+                            }
+                        ]
+                    },
+                    "class": "ce03673a-0a38-4478-a506-c5857e3f5fa9",
+                    "comment": "",
+                    "height": 100,
+                    "name": "Chat",
+                    "simulationTime": 5000,
+                    "uuid": "71c506d9-a12c-48dd-acb5-d06cfd4eca9e",
+                    "width": 250,
+                    "x": -440.7957766850604,
+                    "y": 687.3689984013539
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\EnvPixelplace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "mac": "80:FA:5B:7D:B7:D8",
+                                "uuid": "ca3be94f-7d9c-4328-ab99-7c4d24b6b1e0"
+                            }
+                        ]
+                    },
+                    "class": "c8cec264-0b95-489f-967a-f9b47f9386cb",
+                    "comment": "",
+                    "height": 100,
+                    "name": "DC25",
+                    "simulationTime": 5000,
+                    "uuid": "61bbfad9-10bc-4e94-bb18-320df905afb7",
+                    "width": 250,
+                    "x": -420.53147609178285,
+                    "y": 682.2581869477123
                 }
             ],
             "links": {
@@ -1206,18 +1249,6 @@
                         "source": "7e00a6a6-dabd-4839-bbe0-10df1f75f4f7",
                         "sourceIO": {
                             "type": "TRIGGER_OUT"
-                        }
-                    },
-                    {
-                        "destination": "29269ccf-3c75-4a05-8f42-e30b2c5678c2",
-                        "destinationIO": {
-                            "name": "wildcard",
-                            "type": "INPUT"
-                        },
-                        "source": "0a0d546e-a570-439d-ab2e-50bbc9cb76ff",
-                        "sourceIO": {
-                            "name": "Matrice",
-                            "type": "OUTPUT"
                         }
                     }
                 ]

@@ -19,6 +19,7 @@ import sys
 import tkinter as tk
 from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
 import io
+import random
 
 from new import *
 
@@ -121,6 +122,16 @@ def Mise_a_jour_matrice(sender_agent_name, sender_agent_uuid, service_name, argu
     image = arguments[0]
     nouvelle_image(image)
 
+
+def Chat(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
+    print(arguments)
+    print(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}",my_data,token)
+    igs.info(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}")
+    corp = arguments[1]
+    nom = arguments[0]
+    couleur = arguments[2]
+    ajout_message(nom,corp,couleur)
+
 if __name__ == "__main__":
 
     # catch SIGINT handler before starting agent
@@ -131,7 +142,7 @@ if __name__ == "__main__":
         opts, args = getopt.getopt(sys.argv[1:], short_flag, long_flag)
     except getopt.GetoptError as err:
         igs.error(err)
-        sys.exit(2)
+        sys.exit()
     for o, a in opts:
         if o == "-h" or o == "--help":
             print_usage()
@@ -188,12 +199,15 @@ if __name__ == "__main__":
     
     igs.service_init("Mise_a_jour_matrice", Mise_a_jour_matrice, agent)
     igs.service_arg_add("Mise_a_jour_matrice", "matrice", igs.DATA_T)
+    
+    igs.service_init("Chat", Chat, agent)
+    igs.service_arg_add("Chat", "nom", igs.STRING_T)
+    igs.service_arg_add("Chat", "message", igs.STRING_T)
+    igs.service_arg_add("Chat", "couleur", igs.STRING_T)
 
     igs.start_with_device(device, port)
     # catch SIGINT handler after starting agent
     signal.signal(signal.SIGINT, signal_handler)
-    
-    igs.service_call("ShowMatrice", "welbye",None,None)
 
     if interactive_loop:
         print_usage_help()
@@ -206,9 +220,8 @@ if __name__ == "__main__":
     else:
         while (not is_interrupted) and igs.is_started():
             def quitter(event=None):
-                igs.service_call("ShowMatrice", "welbye",None,None)
                 window.quit()
-                exit(0)
+                sys.exit()
 
             def nouvelle_image(image):
                 global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id, image_recu
@@ -247,97 +260,59 @@ if __name__ == "__main__":
             
             def changer_name(event):
                 user = user_var.get()
-                igs.agent_set_name(user)
-                igs.service_call("ShowMatice", "change_name", user, "")
-                user_var.set(user)
-                image_canvas.focus_set()
-
-            # Création de la fenêtre principale en plein écran
-            window = tk.Tk()
-            window.title("Sélection de couleur")
-            window.attributes('-fullscreen', True)
-            window.bind("<Escape>", quitter)  # Permet de quitter avec la touche Échap
-            window.update()
-
-            # Obtenir la taille actuelle de l'écran
-            wx = window.winfo_width()
-            wy = window.winfo_height()
-
-            # Calcul des proportions par rapport à une résolution de base
-            proportion_x = wx / 1536
-            proportion_y = wy / 864
-
-            # Fonction pour ajuster les dimensions selon les proportions
-            def ajuster_taille(taille_base, proportion):
-                return int(taille_base * proportion)
+                if user != "":
+                    igs.agent_set_name(user)
+                    igs.service_call("ShowMatice", "change_name", user, "")
+                    user_var.set(user)
+                    image_canvas.focus_set()
             
-            # Titre principal centré
-            titre_text = "PixelPlace"
-            titre_label = tk.Label(window, text=titre_text, font=("Comic Sans MS", ajuster_taille(20, proportion_x)))
+            def ajout_message(nom,message,couleur):
+                global cpt
+                print(nom,message,couleur)
+                chat_text.mark_set('insert',tk.END)
+                chat_text.config(state='normal')
+ 
+                i1 = chat_text.index(tk.INSERT)
+                
+                chat_text.insert(tk.END, nom+": ")
+                nb_carac = i1[:i1.find('.')+1]+str(len(nom))
+                chat_text.tag_add(str(cpt),i1,nb_carac)
+                chat_text.tag_config(str(cpt),foreground=couleur)
+                chat_text.insert(tk.END, message+"\n---------------\n")
+                i2 = chat_text.index(tk.END)
+                nb_ligne = int(i2[:i2.find('.')])  - int(i1[:i1.find('.')]) 
+                print(i1,i2)
+                print(nb_ligne)
+                print( chat_text.index(tk.END))
+                print(cpt)
+                chat_text.yview_moveto(chat_text.index(tk.END))
+                chat_text.config(state='disabled')
+                chat_entry.delete(0, tk.END)
+                cpt+=1
+            
+            def survol_fermer(event):
+                croix_label.configure(bg='red')
 
-            # Calcul pour centrer le titre horizontalement
-            titre_width = ajuster_taille(12 * len(titre_text), proportion_x)  # Largeur estimée du texte
-            titre_label.place(x=(wx - titre_width) / 2, y=ajuster_taille(1, proportion_y))
-            
-            user_text = "Utilisateur: "
-            user_label = tk.Label(window, text=user_text, font=("Arial", ajuster_taille(16, proportion_y)))
-            user_label.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(10, proportion_y))
-            
-            user_var = tk.StringVar(value=str(igs.agent_uuid()[-4:]))
-            user_entry = tk.Entry(window, width=ajuster_taille(10, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)), textvariable=user_var)
-            user_entry.place(x=ajuster_taille(110, proportion_x), y=ajuster_taille(10, proportion_y))
-            
-            user_entry.bind("<Return>", changer_name)
-            
-            timer_text = "Timer: "
-            timer_label = tk.Label(window, text=timer_text, font=("Arial", ajuster_taille(16, proportion_y)))
-            timer_label.place(x=ajuster_taille(1200, proportion_x), y=ajuster_taille(1, proportion_y))
-            
-            timer_var = tk.StringVar(value="00:00")
-            timer_label2 = tk.Label(window, font=("Arial", ajuster_taille(16, proportion_y)), textvariable=timer_var)
-            timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(1, proportion_y))
-
-            # Grand Canvas pour l'image ou le dessin
-            image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
-            image_canvas.place(x=ajuster_taille((wx-ajuster_taille(730, proportion_x))/2, proportion_x), y=ajuster_taille(50, proportion_y))
-
-            # Charger l'image PNG
-            image_recu = None
-            nom_image = "init.png"
-            image_originale = Image.open(nom_image)  # Image de la grille
-            image_originale_width, image_originale_height = image_originale.size
-
-
-            # Redimensionner l'image pour l'adapter au Canvas
-            image_taille = 730 
-            image_redimensionnee = image_originale.resize((ajuster_taille(image_taille,proportion_x), ajuster_taille(image_taille,proportion_y)), Image.LANCZOS)  # Ajusté à la taille de la fenêtre
-            image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
-            image_id = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
-
-            # Taille des cases de la grille dans l'image originale
-            taille_case = image_taille / taille  # 100x100 cases dans l'image
-            scale_factor = 1.0  # Facteur de zoom initial
-            
-            
-            
-            # Variables pour le déplacement
-            drag_data = {"x": 0, "y": 0, "item": None}
-            timer = 0
+            def envoie_message(event):
+                message = chat_entry.get()
+                print(message)
+                if message != "":
+                    nom_agent = igs.agent_name()
+                    igs.service_call("Whiteboard", "chat", message, "")
+                    igs.service_call("Chat","Chat",(nom_agent,message,'#00FF00'),"")
             
             def appel_image():
                 image = igs.service_call("Tableau", "demande_image", "", "")
                 print(image)
                 window.after(1000, appel_image)
-                
-            window.after(1000, appel_image)
+
             def updateClock():
                 global timer
                 timer-=1
                 timer_var.set(f"00:{timer}")
                 if timer > 0:
                     window.after(1000, updateClock)
-                
-
+            
             def obtenir_case_grille(event):
                 # Coordonnées du clic sur le canvas
                 x = event.x
@@ -399,9 +374,8 @@ if __name__ == "__main__":
                 # Redéfinir la région de scroll
                 image_canvas.config(scrollregion=image_canvas.bbox("all"))
                 image_id = image_id_tmp
-
-            mouvement = False
-            # Déplacement de l'image avec la souris
+            
+            
             def commencer_drag(event):
                 """Début du drag"""
                 drag_data["item"] = image_id
@@ -444,8 +418,8 @@ if __name__ == "__main__":
                         obtenir_case_grille(event)
                 
                 position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
-
                 posx, posy = position[0], position[1]
+                
                 move_x = round(posx / taille_case) * taille_case
                 move_y = round(posy / taille_case) * taille_case
                 
@@ -458,6 +432,93 @@ if __name__ == "__main__":
                 drag_data["x"] = 0
                 drag_data["y"] = 0
                 mouvement = False
+                    
+            #changer le nom de l'agent afin qu'il corresponde a la fin de son uuid pour avoir des noms d'agents differents pour chaque joueur
+            igs.agent_set_name(igs.agent_uuid()[-4:])
+            
+            # Création de la fenêtre principale en plein écran
+            window = tk.Tk()
+            window.title("Sélection de couleur")
+            window.attributes('-fullscreen', True)
+            window.bind("<Escape>", quitter)  # Permet de quitter avec la touche Échap
+            window.update()
+
+            # Obtenir la taille actuelle de l'écran
+            wx = window.winfo_width()
+            wy = window.winfo_height()
+
+            # Calcul des proportions par rapport à une résolution de base
+            proportion_x = wx / 1536
+            proportion_y = wy / 864
+
+            # Fonction pour ajuster les dimensions selon les proportions
+            def ajuster_taille(taille_base, proportion):
+                return int(taille_base * proportion)
+            
+            # Titre principal centré
+            titre_text = "PixelPlace"
+            titre_label = tk.Label(window, text=titre_text, font=("Comic Sans MS", ajuster_taille(20, proportion_x)))
+
+            # Calcul pour centrer le titre horizontalement
+            titre_width = ajuster_taille(12 * len(titre_text), proportion_x)  # Largeur estimée du texte
+            titre_label.place(x=(wx - titre_width) / 2, y=ajuster_taille(1, proportion_y))
+            
+            user_text = "Utilisateur: "
+            user_label = tk.Label(window, text=user_text, font=("Arial", ajuster_taille(16, proportion_y)))
+            user_label.place(x=ajuster_taille(1, proportion_x), y=ajuster_taille(10, proportion_y))
+            
+            user_var = tk.StringVar(value=str(igs.agent_uuid()[-4:]))
+            user_entry = tk.Entry(window, width=ajuster_taille(10, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)), textvariable=user_var)
+            user_entry.place(x=ajuster_taille(110, proportion_x), y=ajuster_taille(10, proportion_y))
+            
+            user_entry.bind("<Return>", changer_name)
+            
+            timer_text = "Timer: "
+            timer_label = tk.Label(window, text=timer_text, font=("Arial", ajuster_taille(16, proportion_y)))
+            timer_label.place(x=ajuster_taille(1200, proportion_x), y=ajuster_taille(1, proportion_y))
+            
+            timer_var = tk.StringVar(value="00:00")
+            timer_label2 = tk.Label(window, font=("Arial", ajuster_taille(16, proportion_y)), textvariable=timer_var)
+            timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(1, proportion_y))
+
+            # Grand Canvas pour l'image ou le dessin
+            image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
+            image_canvas.place(x=ajuster_taille((wx-ajuster_taille(730, proportion_x))/2, proportion_x), y=ajuster_taille(50, proportion_y))
+
+            # Charger l'image PNG
+            image_recu = None
+            nom_image = "init.png"
+            image_recu = Image.open(nom_image)  # Image de la grille
+            image_originale_width, image_originale_height = image_recu.size
+
+
+            # Redimensionner l'image pour l'adapter au Canvas
+            image_taille = 730 
+            image_redimensionnee = image_recu.resize((ajuster_taille(image_taille,proportion_x), ajuster_taille(image_taille,proportion_y)), Image.LANCZOS)  # Ajusté à la taille de la fenêtre
+            image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
+            image_id = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
+
+            # Taille des cases de la grille dans l'image originale
+            taille_case = image_taille / taille  # 100x100 cases dans l'image
+            scale_factor = 1.0  # Facteur de zoom initial
+            
+            
+            
+            # Variables pour le déplacement
+            drag_data = {"x": 0, "y": 0, "item": None}
+            timer = 0
+            
+            
+                
+            window.after(1000, appel_image)
+            
+                
+
+            
+
+            mouvement = False
+            # Déplacement de l'image avec la souris
+           
                     
             # Associer l'événement clic au Canvas            
             image_canvas.bind("<ButtonPress-1>", commencer_drag)
@@ -523,9 +584,7 @@ if __name__ == "__main__":
                 y2 = ajuster_taille(taille_carré, proportion_y)
                 couleur_canvas.create_rectangle(x1, y1, x2, y2, fill=couleur, outline="")
             
-            def survol_fermer(event):
-                croix_label.configure(bg='red')
-
+            
             # Ajout d'un événement pour capturer le clic sur le nuancier
             couleur_canvas.bind("<Button-1>", choisir_couleur)
 
@@ -556,6 +615,17 @@ if __name__ == "__main__":
             
             croix_label = tk.Label(window,text="X" , width=ajuster_taille(2,proportion_x), height=ajuster_taille(1,proportion_y), font=("Arial", ajuster_taille(16, proportion_y)))
             croix_label.place(x=ajuster_taille(1510, proportion_x), y=ajuster_taille(0, proportion_y))
+            
+            cpt=0
+            chat_text = tk.Text(window,wrap=tk.WORD,width=ajuster_taille(40,proportion_x), height=ajuster_taille(45,proportion_y) )
+            chat_text.place(x=ajuster_taille(5, proportion_x), y=ajuster_taille(50, proportion_y))
+            chat_text.config(state='disabled')
+            
+            
+            chat_entry = tk.Entry(window, width=ajuster_taille(27, proportion_x), font=("Arial", ajuster_taille(16, proportion_y)))
+            chat_entry.place(x=ajuster_taille(5, proportion_x), y=ajuster_taille(780, proportion_y))
+            
+            chat_entry.bind("<Return>", envoie_message)
             
             croix_label.bind("<Enter>", survol_fermer)
             croix_label.bind("<Button-1>", quitter)

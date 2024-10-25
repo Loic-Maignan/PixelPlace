@@ -137,7 +137,7 @@ def create_IMG():
 
         # Exemple : Utiliser les octets pour un traitement supplémentaire
         print("L'image est convertie en chaîne d'octets.")
-        igs.service_call("ClientJoueur", "Mise_a_jour_matrice", image_bytes,"")
+        igs.service_call("test", "Mise_a_jour_matrice", image_bytes,"")
 
         # Optionnel : Fermer le buffer
         buffer.close()
