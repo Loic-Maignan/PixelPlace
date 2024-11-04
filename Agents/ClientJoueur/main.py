@@ -27,6 +27,8 @@ from new import *
 taille = 100
 posx_canvas = 0
 posy_canvas = 0
+image_taille = 730 
+scale_factor = 1.0
 
 port = 5670
 agent_name = "ClientJoueur"
@@ -121,7 +123,10 @@ def Mise_a_jour_matrice(sender_agent_name, sender_agent_uuid, service_name, argu
     print(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}",my_data,token)
     igs.info(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}")
     image = arguments[0]
-    nouvelle_image(image)
+    taille_matrice = arguments[1]
+    taille_pixel = arguments[2]
+    print("taille pixel",taille_pixel)
+    nouvelle_image(image,taille_pixel)
 
 
 def Chat(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
@@ -200,6 +205,8 @@ if __name__ == "__main__":
     
     igs.service_init("Mise_a_jour_matrice", Mise_a_jour_matrice, agent)
     igs.service_arg_add("Mise_a_jour_matrice", "matrice", igs.DATA_T)
+    igs.service_arg_add("Mise_a_jour_matrice", "taille_matrice", igs.INTEGER_T)
+    igs.service_arg_add("Mise_a_jour_matrice", "taille_pixel", igs.INTEGER_T)
     
     igs.service_init("Chat", Chat, agent)
     igs.service_arg_add("Chat", "nom", igs.STRING_T)
@@ -224,13 +231,21 @@ if __name__ == "__main__":
                 window.quit()
                 sys.exit()
 
-            def nouvelle_image(image):
-                global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id, image_recu
+            def nouvelle_image(image,taille_pixel):
+                global image_redimensionnee, image_canvas_image, scale_factor, taille_case, image_id, image_recu,factor,size_pixel
                 image_stream = io.BytesIO(image)
                 image_recu = Image.open(image_stream)  # Image de la grille
                 # Taille de l'image après zoom
                 new_width = int(image_taille * scale_factor)
                 new_height = int(image_taille * scale_factor)
+                
+                size,_  = image_recu.size
+                size_pixel= taille_pixel
+                factor = new_width / size
+                print("factor = ",factor)
+                print("new_width = ",new_width)
+                print("size = ",size)
+                taille_case = size_pixel * factor
 
                 # Redimensionner l'image
                 image_redimensionnee = image_recu.resize((new_width, new_height), Image.LANCZOS)
@@ -245,7 +260,7 @@ if __name__ == "__main__":
                 image_id_tmp = image_canvas.create_image(posx, posy, anchor="nw", image=image_canvas_image)
 
                 # Ajuster la taille des cases
-                taille_case = new_width / 100
+                # taille_case = new_width / 100
 
                 # Redéfinir la région de scroll
                 image_canvas.config(scrollregion=image_canvas.bbox("all"))
@@ -495,7 +510,7 @@ if __name__ == "__main__":
 
 
             # Redimensionner l'image pour l'adapter au Canvas
-            image_taille = 730 
+            
             image_redimensionnee = image_recu.resize((ajuster_taille(image_taille,proportion_x), ajuster_taille(image_taille,proportion_y)), Image.LANCZOS)  # Ajusté à la taille de la fenêtre
             image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
             image_id = image_canvas.create_image(2, 2, anchor="nw", image=image_canvas_image)
@@ -541,15 +556,15 @@ if __name__ == "__main__":
                 x = event.x
                 y = event.y
                 
-                
+                print(f"Survol - Coordonnées: x={x}, y={y}")
                 case_y = int(x // taille_case)
                 case_x = int(y // taille_case)
                 position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
                 x, y = -(position[0])+x, -(position[1])+y
                 print(f"position souris : {x}, {y} , taille de case = {taille_case}")
                 
-                y_var.set(str(int(y // taille_case)))
-                x_var.set(str(int(x // taille_case)))
+                y_var.set(str(int((y+2) // taille_case)))
+                x_var.set(str(int((x+2) // taille_case)))
                 if int(y // taille_case) < 0 :
                     y_var.set("0")
                 if int(x // taille_case) < 0 :
@@ -561,8 +576,9 @@ if __name__ == "__main__":
                     
                 
                 print(f"Survol - Coordonnées: x={x}, y={y}, case x : {case_x}, case y : {case_y}")
+                print(f"Survol - Coordonnées: x={x}, y={y}, case x : {x_var.get()}, case y : {y_var.get()}")
                 couleur = couleur_var.get()
-                previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+2, case_x*taille_case+2, (case_y+1)*taille_case+2, (case_x+1)*taille_case+2, fill=couleur, outline="")
+                previsu_tmp = image_canvas.create_rectangle(case_y*taille_case+(3*scale_factor), case_x*taille_case+(3*scale_factor), (case_y+1)*taille_case+(3*scale_factor), (case_x+1)*taille_case+(3*scale_factor), fill=couleur, outline="")
                 previsu = previsu_tmp
                 
             
