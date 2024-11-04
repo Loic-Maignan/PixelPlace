@@ -23,7 +23,6 @@ def print_usage():
     print("--interactive_loop : enables interactive loop to pass commands in CLI (default: false)")
 
 
-
 def size_callback(iop_type, name, value_type, value, my_data):
     global TAILLE, tableau
     TAILLE = value
@@ -31,7 +30,6 @@ def size_callback(iop_type, name, value_type, value, my_data):
     msg = str(TAILLE) + ";"
     for i in tableau:
         msg += str(i) + ","
-    print(msg)
     igs.output_set_string("Matrice", msg)
 
     

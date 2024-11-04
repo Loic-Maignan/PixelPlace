@@ -524,6 +524,16 @@
                             "name": "Matrice",
                             "type": "STRING"
                         }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "Init_Tableau",
+                            "type": "INTEGER"
+                        },
+                        {
+                            "name": "Init_Whiteboard",
+                            "type": "IMPULSION"
+                        }
                     ]
                 },
                 "description": "",
@@ -574,6 +584,14 @@
                                 {
                                     "name": "matrice",
                                     "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
                                 }
                             ],
                             "name": "Mise_a_jour_matrice"
@@ -883,12 +901,128 @@
                 "plugin": "ingescape_class",
                 "uuid": "ae8225fc-994c-482b-9f47-25d0849a9ecb",
                 "version": ""
+            },
+            {
+                "className": "BED3",
+                "color": 0,
+                "definition": {
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "matrice",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "Mise_a_jour_matrice"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "nom",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "couleur",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "Chat"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "cc45bc11-7e75-41cf-9e5c-88c363f4b935",
+                "version": ""
             }
         ]
     },
     "systemViews": [
         {
             "children": [
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.43.96",
+                                "isAttachedToCircle": false,
+                                "mac": "F4:26:79:40:2D:60",
+                                "uuid": "3faac7e0-f3fa-4aa8-8c9a-93434bd13de8"
+                            }
+                        ]
+                    },
+                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
+                    "comment": "",
+                    "height": 136,
+                    "name": "ShowMatrice",
+                    "simulationTime": 5000,
+                    "uuid": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                    "width": 250,
+                    "x": -742.8945082414365,
+                    "y": -40.23427292753129
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "2f448e46-4634-48a4-ade8-80c4e64defa2",
+                    "width": 316,
+                    "x": -90.7255998592916,
+                    "y": 84.51540876112858
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 130.6184748542568,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
+                    "width": 511.474209676426,
+                    "x": -86.04363208424934,
+                    "y": 158.82997909935955
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 56,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "3225605c-1dfa-43a5-821f-865e06aa2170",
+                    "width": 180,
+                    "x": -81.49274412265618,
+                    "y": 314.13226421291506
+                },
                 {
                     "agent": {
                         "instances": [
@@ -947,104 +1081,38 @@
                     "simulationTime": 5000,
                     "uuid": "2370d114-8929-43c3-8380-5e0da0c02847",
                     "width": 252,
-                    "x": -587.6953754873543,
-                    "y": 481.4745363694449
-                },
-                {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 56,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "2f448e46-4634-48a4-ade8-80c4e64defa2",
-                    "width": 316,
-                    "x": -248.02900536941297,
-                    "y": 478.2879859531324
-                },
-                {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 130.6184748542568,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "a9d978ad-1e04-4c8e-9744-ecfe0a652295",
-                    "width": 511.474209676426,
-                    "x": -241.2907839275722,
-                    "y": 537.1806537903714
-                },
-                {
-                    "data": {
-                        "data_decoder": "BINARY",
-                        "msg_type": "",
-                        "proto_file_path": "",
-                        "string_decoder": "PLAIN_TEXT"
-                    },
-                    "height": 56,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.observer",
-                    "uuid": "3225605c-1dfa-43a5-821f-865e06aa2170",
-                    "width": 180,
-                    "x": -245.99303746657438,
-                    "y": 696.5954462375247
-                },
-                {
-                    "agent": {
-                        "instances": [
-                            {
-                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.43.96",
-                                "isAttachedToCircle": false,
-                                "mac": "F4:26:79:40:2D:60",
-                                "uuid": "16f70d79-626b-4e64-a328-dc3c29a372d9"
-                            }
-                        ]
-                    },
-                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
-                    "comment": "",
-                    "height": 136,
-                    "name": "ShowMatrice",
-                    "simulationTime": 5000,
-                    "uuid": "5a8ceda1-4e5a-499f-80a8-cf59d31d81b2",
-                    "width": 250,
-                    "x": -301.80056682324675,
-                    "y": 66.7824868148644
-                },
-                {
-                    "data": {
-                        "duration": 1000,
-                        "repeat": 0
-                    },
-                    "height": 112,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.timer",
-                    "uuid": "4a70761b-880e-455d-9e5a-4fc5b334d1be",
-                    "width": 210,
-                    "x": -1134.3274711650572,
-                    "y": -11.223971723415275
+                    "x": -385.15438930765504,
+                    "y": 178.17712051659618
                 },
                 {
                     "data": {
                         "entries": [
-                            "100"
+                            "PixelPlace"
                         ],
-                        "value_type": "INTEGER"
+                        "value_type": "STRING"
                     },
                     "height": 79,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.writer",
-                    "uuid": "f0452dd3-7e63-4d20-82c0-0611e220f841",
+                    "uuid": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
                     "width": 256,
-                    "x": -1083.0825024693704,
-                    "y": 181.1646813440954
+                    "x": -787.074207075434,
+                    "y": 210.00265067786637
+                },
+                {
+                    "data": {
+                        "entries": [
+                            "false"
+                        ],
+                        "value_type": "BOOL"
+                    },
+                    "height": 79,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "2609a07d-a8b7-488c-833e-65c34c2537ab",
+                    "width": 256,
+                    "x": -781.651174520189,
+                    "y": 308.90115326354805
                 },
                 {
                     "agent": {
@@ -1066,8 +1134,8 @@
                     "simulationTime": 5000,
                     "uuid": "4b2a28f3-8207-4e52-bbe8-0aaf308c316b",
                     "width": 250,
-                    "x": -689.1460899096116,
-                    "y": 153.78815847793499
+                    "x": -433.3717862229662,
+                    "y": 19.128440632230877
                 },
                 {
                     "data": {
@@ -1077,8 +1145,8 @@
                     "tool": "com.ingescape.circle.tool.startsimu",
                     "uuid": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
                     "width": 80,
-                    "x": -692.2329367252701,
-                    "y": 3.426835407402905
+                    "x": -1168.2556605892332,
+                    "y": 23.98937207539268
                 },
                 {
                     "data": {
@@ -1090,12 +1158,18 @@
                     "tool": "com.ingescape.circle.tool.timer",
                     "uuid": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
                     "width": 230,
-                    "x": -282.77805123595795,
-                    "y": -97.77844136222859
+                    "x": -1057.985683619172,
+                    "y": -117.31285119681885
                 }
             ],
             "links": {
                 "mappings": [
+                    {
+                        "from": "Tableau",
+                        "fromInput": "Size",
+                        "to": "ShowMatrice",
+                        "toOutput": "Init_Tableau"
+                    },
                     {
                         "from": "ShowMatrice",
                         "fromInput": "Matrice",
@@ -1141,17 +1215,6 @@
                         }
                     },
                     {
-                        "destination": "5a8ceda1-4e5a-499f-80a8-cf59d31d81b2",
-                        "destinationIO": {
-                            "name": "Clear",
-                            "type": "INPUT"
-                        },
-                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
-                        "sourceIO": {
-                            "type": "TRIGGER_OUT"
-                        }
-                    },
-                    {
                         "destination": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
                         "destinationIO": {
                             "name": "start",
@@ -1163,7 +1226,18 @@
                         }
                     },
                     {
-                        "destination": "5a8ceda1-4e5a-499f-80a8-cf59d31d81b2",
+                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "destinationIO": {
+                            "name": "Clear",
+                            "type": "INPUT"
+                        },
+                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
+                        "sourceIO": {
+                            "type": "TRIGGER_OUT"
+                        }
+                    },
+                    {
+                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
                         "destinationIO": {
                             "name": "CheckSize",
                             "type": "INPUT"
@@ -1175,49 +1249,51 @@
                         }
                     },
                     {
-                        "destination": "4a70761b-880e-455d-9e5a-4fc5b334d1be",
-                        "destinationIO": {
-                            "name": "start",
-                            "type": "INPUT"
-                        },
-                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
-                        "sourceIO": {
-                            "type": "TRIGGER_OUT"
-                        }
-                    },
-                    {
-                        "destination": "f0452dd3-7e63-4d20-82c0-0611e220f841",
+                        "destination": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
                         "destinationIO": {
                             "name": "trigger",
                             "type": "INPUT"
                         },
-                        "source": "4a70761b-880e-455d-9e5a-4fc5b334d1be",
+                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
                         "sourceIO": {
-                            "name": "output",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
-                        "destination": "4b2a28f3-8207-4e52-bbe8-0aaf308c316b",
-                        "destinationIO": {
-                            "name": "Size",
-                            "type": "INPUT"
-                        },
-                        "source": "f0452dd3-7e63-4d20-82c0-0611e220f841",
-                        "sourceIO": {
-                            "name": "value",
+                            "name": "Init_Whiteboard",
                             "type": "OUTPUT"
                         }
                     },
                     {
                         "destination": "2370d114-8929-43c3-8380-5e0da0c02847",
                         "destinationIO": {
-                            "name": "clear",
+                            "name": "title",
                             "type": "INPUT"
                         },
-                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
+                        "source": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
                         "sourceIO": {
-                            "type": "TRIGGER_OUT"
+                            "name": "value",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "2609a07d-a8b7-488c-833e-65c34c2537ab",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "sourceIO": {
+                            "name": "Init_Whiteboard",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "2370d114-8929-43c3-8380-5e0da0c02847",
+                        "destinationIO": {
+                            "name": "labelsVisible",
+                            "type": "INPUT"
+                        },
+                        "source": "2609a07d-a8b7-488c-833e-65c34c2537ab",
+                        "sourceIO": {
+                            "name": "value",
+                            "type": "OUTPUT"
                         }
                     }
                 ]

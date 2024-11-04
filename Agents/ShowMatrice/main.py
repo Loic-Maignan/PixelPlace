@@ -9,38 +9,22 @@ import pygetwindow as gw
 from io import BytesIO
 import random
 
-color_mapping = {
-    'white': (255, 255, 255),
-    'red': (255, 0, 0),
-    'blue': (0, 0, 255),
-    'green': (0, 255, 0),
-    'yellow': (255, 255, 0),
-}
-
-couleurs = ["#6d0019","#bb0038","#ff4500","#ffaa00","#fcd730","#fff8b6","#00a46a","#02cc7b",
+Colors = ["#6d0019","#bb0038","#ff4500","#ffaa00","#fcd730","#fff8b6","#00a46a","#02cc7b",
                         "#7bef52","#01766d","#009faa","#02cbbf","#2650a6","#3591ec","#50e9f6","#4639c1",
                         "#6c5dff","#96b2fa","#801da2","#b749c0","#e6aafc","#dd107d","#fe3881","#ff98ab",
                         "#6d482e","#9a6927","#ffb270","#000000","#525252","#898e91","#d4d7d8","#ffffff"]
 
 MatriceOld = None
-Taille = None
-cpt  = 0
+SizeMatrice = None
+SizePixel = None
+NbImg  = 0
 WindowW = 0
 WindowH = 0
 FileName = ""
-agent_name = "ShowMatrice"
+AgentName = "ShowMatrice"
 device = None
-ListJoueurs = []
-ListCouleur = []
-
-def print_usage():
-    print("Usage example: ", agent_name, " --verbose --port 5670 --device device_name")
-    print("\nthese parameters have default value (indicated here above):")
-    print("--verbose : enable verbose mode in the application (default is disabled)")
-    print("--port port_number : port used for autodiscovery between agents (default: 31520)")
-    print("--device device_name : name of the network device to be used (useful if several devices available)")
-    print("--name agent_name : published name for this agent (default: ", agent_name, ")")
-    print("--interactive_loop : enables interactive loop to pass commands in CLI (default: false)")
+ListPlayers = []
+ListColors = []
 
 def hex_to_rgb(hex_value):
     # Supprimer le symbole '#' si présent
@@ -52,25 +36,45 @@ def hex_to_rgb(hex_value):
     b = int(hex_value[4:6], 16)  # Composant bleu
     
     return (r, g, b)
-def Chat(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
-    arg = (arguments[0],arguments[1],ListCouleur[ListJoueurs.index(sender_agent_uuid)])
-    for joueur in ListJoueurs:
+
+def tchat(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
+    arg = (arguments[0],arguments[1],ListColors[ListPlayers.index(sender_agent_uuid)])
+    for player in ListPlayers:
         print(arg)
-        igs.service_call(joueur, "Chat", arg, "")
+        igs.service_call(player, "Chat", arg, "")
     
+def send_IMG(player):
+    img = Image.open(FileName)
+    buffer = BytesIO()  # Crée un buffer en mémoire
+    img.save(buffer, format='PNG')  # Sauvegarde l'image dans le buffer au format PNG
+    # Récupérer les octets de l'image
+    img_bytes = buffer.getvalue()
+    # Exemple : Utiliser les octets pour un traitement supplémentaire
+    igs.service_call(player, "Mise_a_jour_matrice", (img_bytes,SizeMatrice,SizePixel),"")
+    # Optionnel : Fermer le buffer
+    buffer.close()
 
 def on_agent_event_callback(event, uuid, name, event_data, my_data):
-    if event == igs.AGENT_ENTERED:
+    if event == igs.AGENT_KNOWS_US:
         if uuid[-4:] == name:
-            ListJoueurs.append(uuid)
-            ListCouleur.append(couleurs[random.randint(0,len(couleurs)-1)])
+            ListPlayers.append(uuid)
+            ListColors.append(Colors[random.randint(0,len(Colors)-1)])
+            send_IMG(uuid)
+        if "Whiteboard" == name:
+            igs.output_set_impulsion("Init_Whiteboard")
+        if "Tableau" == name:
+            igs.output_set_int("Init_Tableau",100)
+
+
     elif event == igs.AGENT_EXITED:
-        if uuid in ListJoueurs:
-            ListJoueurs.remove(uuid)
+        if uuid in ListPlayers:
+            ListPlayers.remove(uuid)
      
 def clear_callback(iop_type, name, value_type, value, my_data):
-    global cpt
+    global NbImg
     igs.service_call("Whiteboard", "clear", (), "")
+    igs.output_set_impulsion("Init_Whiteboard")
+    igs.output_set_int("Init_Tableau",100)
 
     for fichier in os.listdir("Img/"):
         chemin_fichier = os.path.join("Img/", fichier)
@@ -80,7 +84,7 @@ def clear_callback(iop_type, name, value_type, value, my_data):
             except:
                 pass
     MatriceOld = None
-    cpt = 0
+    NbImg = 0
 
 def get_specific_window_size(window_title):
     windows = gw.getWindowsWithTitle(window_title)
@@ -102,6 +106,7 @@ def get_specific_window_size(window_title):
         height = int(height/1.2)
     
     return (width, height)
+
 def checkSize_callback(iop_type, name, value_type, value, my_data):
     global WindowH, WindowW
     w, h = get_specific_window_size("Whiteboard")
@@ -110,11 +115,10 @@ def checkSize_callback(iop_type, name, value_type, value, my_data):
         WindowW = w
         create_IMG()
 
-
 def matrice_callback(iop_type, name, value_type, value, my_data):
-    global Taille,MatriceOld
+    global SizeMatrice,MatriceOld
     value = str(value).split(";")
-    Taille = int(value[0])
+    SizeMatrice = int(value[0])
     value = value[1].split(",")
     ligne = []
     matrice = []
@@ -122,7 +126,7 @@ def matrice_callback(iop_type, name, value_type, value, my_data):
     for val in value:
         i += 1
         ligne.append(val)
-        if i == Taille:
+        if i == SizeMatrice:
             matrice.append(ligne)
             i = 0
             ligne = []
@@ -134,55 +138,41 @@ def show_Img(fileName):
     igs.service_call("Whiteboard", "addImageFromUrl", arguments_list, "")
 
 def create_IMG():
-    global cpt, FileName
+    global NbImg, FileName, SizePixel
 
     if MatriceOld == None:
         show_Img(FileName)
     else:
-        taillePixel = int(WindowH/Taille)
+        SizePixel = int(WindowH/SizeMatrice)
         border_size = 1
-        image_ligne = len(MatriceOld[0]) * (taillePixel) + border_size*2
-        image_colone = len(MatriceOld) * (taillePixel) + border_size*2
+        image_ligne = len(MatriceOld[0]) * (SizePixel) + border_size*2
+        image_colone = len(MatriceOld) * (SizePixel) + border_size*2
 
         img = Image.new('RGB', (image_ligne, image_colone), (0, 0, 0)) 
 
         for row_idx, row in enumerate(MatriceOld):
             for col_idx, color in enumerate(row):
-                try :
-                    rgb_color = hex_to_rgb(color)
-                except:
-                    rgb_color = color_mapping[color]
-                start_x = col_idx * (taillePixel) + border_size
-                start_y = row_idx * (taillePixel) + border_size
-                for i in range(taillePixel):
-                    for j in range(taillePixel):
+                rgb_color = hex_to_rgb(color)
+                start_x = col_idx * (SizePixel) + border_size
+                start_y = row_idx * (SizePixel) + border_size
+                for i in range(SizePixel):
+                    for j in range(SizePixel):
                         img.putpixel((start_x + i, start_y + j), rgb_color)
-        FileName = "Img/matrice" + str(cpt) + ".png"
+        FileName = "Img/matrice" + str(NbImg) + ".png"
         img.save(FileName)
-        # Convertir l'image en chaîne d'octets
-        buffer = BytesIO()  # Crée un buffer en mémoire
-        img.save(buffer, format='PNG')  # Sauvegarde l'image dans le buffer au format PNG
+        for player in ListPlayers:
+            send_IMG(player)
 
-        # Récupérer les octets de l'image
-        image_bytes = buffer.getvalue()
-
-        # Exemple : Utiliser les octets pour un traitement supplémentaire
-        for joueur in ListJoueurs:
-            igs.service_call(joueur, "Mise_a_jour_matrice", image_bytes,"")
-
-        # Optionnel : Fermer le buffer
-        buffer.close()
         
-        arguments_list = (cpt-1)
+        arguments_list = (NbImg-1)
         igs.service_call("Whiteboard", "remove", arguments_list, "")
-        cpt += 1
+        NbImg += 1
 
         show_Img(FileName)
 
-        
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("usage: python3 main.py agent_name network_device port")
+        print("usage: python3 main.py AgentName network_device port")
         devices = igs.net_devices_list()
         print("Please restart with one of these devices as network_device argument:")
         for device in devices:
@@ -210,11 +200,8 @@ if __name__ == "__main__":
                 print("Please use one of these network devices:")
                 for device in list_devices:
                     print("	", device)
-                print_usage()
             exit(1)
         
-        
-
     for fichier in os.listdir("Img/"):
         chemin_fichier = os.path.join("Img/", fichier)
         if os.path.isfile(chemin_fichier):
@@ -233,7 +220,11 @@ if __name__ == "__main__":
     igs.input_create("Clear", igs.IMPULSION_T, None)
     igs.input_create("CheckSize", igs.IMPULSION_T, None)
     igs.input_create("Clear", igs.IMPULSION_T, None)
-    igs.service_init("Chat", Chat, None)
+
+    igs.output_create("Init_Tableau", igs.INTEGER_T, None)
+    igs.output_create("Init_Whiteboard", igs.STRING_T, None)
+
+    igs.service_init("Chat", tchat, None)
     igs.service_arg_add("Chat", "nom", igs.STRING_T)
     igs.service_arg_add("Chat", "message", igs.STRING_T)
     igs.observe_input("CheckSize", checkSize_callback, None)
