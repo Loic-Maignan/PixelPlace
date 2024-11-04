@@ -17,6 +17,7 @@ import traceback
 import sys
 
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
 import io
 import random
@@ -300,7 +301,8 @@ if __name__ == "__main__":
                     nom_agent = igs.agent_name()
                     igs.service_call("Whiteboard", "chat", message, "")
                     igs.service_call("Chat","Chat",(nom_agent,message,'#00FF00'),"")
-            
+                    chat_entry.delete(0, tk.END)
+
             def appel_image():
                 image = igs.service_call("Tableau", "demande_image", "", "")
                 print(image)
@@ -475,11 +477,11 @@ if __name__ == "__main__":
             
             timer_text = "Timer: "
             timer_label = tk.Label(window, text=timer_text, font=("Arial", ajuster_taille(16, proportion_y)))
-            timer_label.place(x=ajuster_taille(1200, proportion_x), y=ajuster_taille(1, proportion_y))
+            timer_label.place(x=ajuster_taille(1200, proportion_x), y=ajuster_taille(10, proportion_y))
             
             timer_var = tk.StringVar(value="00:00")
             timer_label2 = tk.Label(window, font=("Arial", ajuster_taille(16, proportion_y)), textvariable=timer_var)
-            timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(1, proportion_y))
+            timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(10, proportion_y))
 
             # Grand Canvas pour l'image ou le dessin
             image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
@@ -567,13 +569,17 @@ if __name__ == "__main__":
             image_canvas.bind("<Motion>", survol_canvas)
             
             # Liste de couleurs à afficher sur le Canvas
-            couleurs = ["#FFFFFF", "#C0C0C0", "#808080", "#000000", "#FF99CC", "#FF0000", "#FF6600", "#CC6600", 
-                        "#FFFF00", "#00FF00", "#33CC33", "#00FFFF", "#3333FF", "#0000FF", "#FF00FF", "#800080"]
+            couleurs = ["#6d0019","#bb0038","#ff4500","#ffaa00","#fcd730","#fff8b6","#00a46a","#02cc7b",
+                        "#7bef52","#01766d","#009faa","#02cbbf","#2650a6","#3591ec","#50e9f6","#4639c1",
+                        "#6c5dff","#96b2fa","#801da2","#b749c0","#e6aafc","#dd107d","#fe3881","#ff98ab",
+                        "#6d482e","#9a6927","#ffb270","#000000","#525252","#898e91","#d4d7d8","#ffffff"]
+            # couleurs = ["#FFFFFF", "#C0C0C0", "#808080", "#000000", "#FF99CC", "#FF0000", "#FF6600", "#CC6600", 
+            #             "#FFFF00", "#00FF00", "#33CC33", "#00FFFF", "#3333FF", "#0000FF", "#FF00FF", "#800080"]
             
             # Petit Canvas pour la sélection de la couleur
             taille_carré = 40
             couleur_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(len(couleurs)*taille_carré, proportion_x), height=ajuster_taille(taille_carré, proportion_y))
-            couleur_canvas.place(x=ajuster_taille((wx-ajuster_taille(len(couleurs)*taille_carré, proportion_x)) / 2, proportion_x), y=ajuster_taille(800, proportion_y))
+            couleur_canvas.place(x=ajuster_taille((wx-ajuster_taille(len(couleurs)*taille_carré, proportion_x)) / 2, proportion_x), y=ajuster_taille(820, proportion_y))
             
             # Création des carrés de couleur dans le petit Canvas
             carré_taille = ajuster_taille(taille_carré, proportion_x)
@@ -611,7 +617,7 @@ if __name__ == "__main__":
 
             zoom_var = tk.StringVar(value="1.0")
             zoom_label_var = tk.Label(window,textvariable=zoom_var , font=("Arial", ajuster_taille(16, proportion_y)))
-            zoom_label_var.place(x=ajuster_taille(580, proportion_x), y=ajuster_taille(10, proportion_y))
+            zoom_label_var.place(x=ajuster_taille(550, proportion_x), y=ajuster_taille(10, proportion_y))
             
             croix_label = tk.Label(window,text="X" , width=ajuster_taille(2,proportion_x), height=ajuster_taille(1,proportion_y), font=("Arial", ajuster_taille(16, proportion_y)))
             croix_label.place(x=ajuster_taille(1510, proportion_x), y=ajuster_taille(0, proportion_y))
@@ -628,8 +634,38 @@ if __name__ == "__main__":
             chat_entry.bind("<Return>", envoie_message)
             
             croix_label.bind("<Enter>", survol_fermer)
-            croix_label.bind("<Button-1>", quitter)
-            croix_label.bind("<Leave>", lambda event : croix_label.configure(bg="#F0F0F0"))
+            croix_label.bind("<ButtonRelease-1>", quitter)
+            croix_label.bind("<Leave>", lambda event : croix_label.configure(bg=window.cget("bg")))
+            
+            
+            def apply_colors(root, bg_color, fg_color):
+                # Appliquer les couleurs à chaque widget de manière récursive
+                for widget in root.winfo_children():
+                    try:
+                        widget.configure(bg=bg_color, fg=fg_color)
+                    except tk.TclError:
+                        pass  # Certains widgets peuvent ne pas avoir d'options bg/fg
+                    apply_colors(widget, bg_color, fg_color)  # Appliquer aux sous-widgets
+            
+            def changer_couleur():
+                if window.cget("bg") == "#1f1f1f":
+                    # Changer le thème de couleur
+                    bg_color = "#FFFFFF"
+                    fg_color = "#000000"
+                    apply_colors(window, bg_color, fg_color)
+                    dark_mode.config(text="Light mode")
+                    window.config(bg="#FFFFFF")
+                else:
+                    window.config(bg="#1f1f1f")
+                    # Changer le thème de couleur
+                    bg_color = "#1f1f1f"
+                    fg_color = "#FFFFFF"
+                    apply_colors(window, bg_color, fg_color)
+                    dark_mode.config(text="Dark mode")
+                    
+            
+            dark_mode = tk.Button(window,text="Dark mode",command=changer_couleur)
+            dark_mode.place(x=ajuster_taille(1400, proportion_x), y=ajuster_taille(10, proportion_y))
 
             # Lancement de la boucle principale
             window.mainloop()
