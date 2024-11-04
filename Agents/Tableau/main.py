@@ -24,20 +24,19 @@ def print_usage():
 
 
 
-def input_callback(iop_type, name, value_type, value, my_data):
-    igs.info(f"Input {name} of type {value_type} has been written with value '{value}' and user data '{my_data}'")
-    position,couleur = value.split(',')
-    tableau[int(position)] = couleur
-    message = str(TAILLE) + ";"
+def size_callback(iop_type, name, value_type, value, my_data):
+    global TAILLE, tableau
+    TAILLE = value
+    tableau = ["#FFFFFF" for i in range(TAILLE*TAILLE)] 
+    msg = str(TAILLE) + ";"
     for i in tableau:
-        message += str(i) + ","
-        
-    igs.output_set_string("Matrice", message)
+        msg += str(i) + ","
+    print(msg)
+    igs.output_set_string("Matrice", msg)
+
     
 
 def ajouter(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
-    print(arguments)
-    print(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}",my_data,token)
     igs.info(f"Service {service_name} was called by {sender_agent_name} ({sender_agent_uuid}) with arguments : {''.join(f'arg={argument} ' for argument in arguments)}")
     position = arguments[0]
     couleur = arguments[1]
@@ -91,8 +90,8 @@ if __name__ == "__main__":
     igs.service_arg_add("ajouter", "couleur", igs.STRING_T)
 
     
-    igs.input_create("Position/Couleur", igs.STRING_T, None)
-    igs.observe_input("Position/Couleur", input_callback, None)
+    igs.input_create("Size", igs.INTEGER_T, None)
+    igs.observe_input("Size", size_callback, None)
     
     igs.output_create("Matrice", igs.STRING_T, None)
 

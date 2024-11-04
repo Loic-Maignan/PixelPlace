@@ -7,6 +7,7 @@ from PIL import Image
 import os
 import pygetwindow as gw
 from io import BytesIO
+import random
 
 color_mapping = {
     'white': (255, 255, 255),
@@ -16,6 +17,11 @@ color_mapping = {
     'yellow': (255, 255, 0),
 }
 
+couleurs = ["#6d0019","#bb0038","#ff4500","#ffaa00","#fcd730","#fff8b6","#00a46a","#02cc7b",
+                        "#7bef52","#01766d","#009faa","#02cbbf","#2650a6","#3591ec","#50e9f6","#4639c1",
+                        "#6c5dff","#96b2fa","#801da2","#b749c0","#e6aafc","#dd107d","#fe3881","#ff98ab",
+                        "#6d482e","#9a6927","#ffb270","#000000","#525252","#898e91","#d4d7d8","#ffffff"]
+
 MatriceOld = None
 Taille = None
 cpt  = 0
@@ -24,6 +30,8 @@ WindowH = 0
 FileName = ""
 agent_name = "ShowMatrice"
 device = None
+ListJoueurs = []
+ListCouleur = []
 
 def print_usage():
     print("Usage example: ", agent_name, " --verbose --port 5670 --device device_name")
@@ -44,7 +52,35 @@ def hex_to_rgb(hex_value):
     b = int(hex_value[4:6], 16)  # Composant bleu
     
     return (r, g, b)
+def Chat(sender_agent_name, sender_agent_uuid, service_name, arguments, token, my_data):
+    arg = (arguments[0],arguments[1],ListCouleur[ListJoueurs.index(sender_agent_uuid)])
+    for joueur in ListJoueurs:
+        print(arg)
+        igs.service_call(joueur, "Chat", arg, "")
+    
 
+def on_agent_event_callback(event, uuid, name, event_data, my_data):
+    if event == igs.AGENT_ENTERED:
+        if uuid[-4:] == name:
+            ListJoueurs.append(uuid)
+            ListCouleur.append(couleurs[random.randint(0,len(couleurs)-1)])
+    elif event == igs.AGENT_EXITED:
+        if uuid in ListJoueurs:
+            ListJoueurs.remove(uuid)
+     
+def clear_callback(iop_type, name, value_type, value, my_data):
+    global cpt
+    igs.service_call("Whiteboard", "clear", (), "")
+
+    for fichier in os.listdir("Img/"):
+        chemin_fichier = os.path.join("Img/", fichier)
+        if os.path.isfile(chemin_fichier):
+            try : 
+                os.remove(chemin_fichier)
+            except:
+                pass
+    MatriceOld = None
+    cpt = 0
 
 def get_specific_window_size(window_title):
     windows = gw.getWindowsWithTitle(window_title)
@@ -75,9 +111,6 @@ def checkSize_callback(iop_type, name, value_type, value, my_data):
         create_IMG()
 
 
-def clear_callback(iop_type, name, value_type, value, my_data):
-    show_Img(FileName)
-
 def matrice_callback(iop_type, name, value_type, value, my_data):
     global Taille,MatriceOld
     value = str(value).split(";")
@@ -94,7 +127,6 @@ def matrice_callback(iop_type, name, value_type, value, my_data):
             i = 0
             ligne = []
     MatriceOld = matrice
-    print(matrice)
     create_IMG()
 
 def show_Img(fileName):
@@ -107,11 +139,10 @@ def create_IMG():
     if MatriceOld == None:
         show_Img(FileName)
     else:
-        taillePixelX = int(WindowW/Taille)
-        taillePixelY = int(WindowH/Taille)
+        taillePixel = int(WindowH/Taille)
         border_size = 1
-        image_ligne = len(MatriceOld[0]) * (taillePixelX + border_size) + border_size
-        image_colone = len(MatriceOld) * (taillePixelY + border_size) + border_size
+        image_ligne = len(MatriceOld[0]) * (taillePixel) + border_size*2
+        image_colone = len(MatriceOld) * (taillePixel) + border_size*2
 
         img = Image.new('RGB', (image_ligne, image_colone), (0, 0, 0)) 
 
@@ -121,10 +152,10 @@ def create_IMG():
                     rgb_color = hex_to_rgb(color)
                 except:
                     rgb_color = color_mapping[color]
-                start_x = col_idx * (taillePixelX + border_size) + border_size
-                start_y = row_idx * (taillePixelY + border_size) + border_size
-                for i in range(taillePixelX):
-                    for j in range(taillePixelY):
+                start_x = col_idx * (taillePixel) + border_size
+                start_y = row_idx * (taillePixel) + border_size
+                for i in range(taillePixel):
+                    for j in range(taillePixel):
                         img.putpixel((start_x + i, start_y + j), rgb_color)
         FileName = "Img/matrice" + str(cpt) + ".png"
         img.save(FileName)
@@ -136,16 +167,16 @@ def create_IMG():
         image_bytes = buffer.getvalue()
 
         # Exemple : Utiliser les octets pour un traitement supplémentaire
-        print("L'image est convertie en chaîne d'octets.")
-        igs.service_call("test", "Mise_a_jour_matrice", image_bytes,"")
+        for joueur in ListJoueurs:
+            igs.service_call(joueur, "Mise_a_jour_matrice", image_bytes,"")
 
         # Optionnel : Fermer le buffer
         buffer.close()
         
+        arguments_list = (cpt-1)
+        igs.service_call("Whiteboard", "remove", arguments_list, "")
         cpt += 1
 
-        arguments_list = ()
-        igs.service_call("Whiteboard", "clear", arguments_list, "")
         show_Img(FileName)
 
         
@@ -201,12 +232,17 @@ if __name__ == "__main__":
     igs.input_create("Matrice", igs.STRING_T, None)
     igs.input_create("Clear", igs.IMPULSION_T, None)
     igs.input_create("CheckSize", igs.IMPULSION_T, None)
+    igs.input_create("Clear", igs.IMPULSION_T, None)
+    igs.service_init("Chat", Chat, None)
+    igs.service_arg_add("Chat", "nom", igs.STRING_T)
+    igs.service_arg_add("Chat", "message", igs.STRING_T)
     igs.observe_input("CheckSize", checkSize_callback, None)
     igs.observe_input("Matrice", matrice_callback, None)
     igs.observe_input("Clear", clear_callback, None)
+    igs.observe_agent_events(on_agent_event_callback, None)
+
     
     igs.start_with_device(device, int(sys.argv[2]))
-
     
     input("")
     igs.stop()
