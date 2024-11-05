@@ -315,7 +315,7 @@ if __name__ == "__main__":
                 if message != "":
                     nom_agent = igs.agent_name()
                     igs.service_call("Whiteboard", "chat", message, "")
-                    igs.service_call("Chat","Chat",(nom_agent,message,'#00FF00'),"")
+                    igs.service_call("ShowMatrice","Chat",(nom_agent,message),"")
                     chat_entry.delete(0, tk.END)
 
             def appel_image():
