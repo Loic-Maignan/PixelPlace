@@ -18,9 +18,12 @@ import sys
 
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import filedialog  # Pour ouvrir des fichiers
+from tkinter import simpledialog  # Pour les boîtes de dialogue simples
 from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
 import io
-import random
+import requests
+from io import BytesIO
 
 from new import *
 
@@ -378,15 +381,17 @@ if __name__ == "__main__":
                 # Redimensionner l'image
                 image_redimensionnee = image_recu.resize((new_width, new_height), Image.LANCZOS)
                 image_canvas_image = ImageTk.PhotoImage(image_redimensionnee)
+                size,_  = image_recu.size
+                factor = new_width / size
 
                 # Supprimer l'image actuelle du canvas et la remplacer par l'image zoomée
                 # position = image_canvas.coords(image_id)  # Renvoie une liste [x, y]
                 # posx, posy = position[0], position[1]
                 image_canvas.delete(image_id)
                 image_id_tmp = image_canvas.create_image(2,2, anchor="nw", image=image_canvas_image)
-
+                
                 # Ajuster la taille des cases
-                taille_case = new_width / 100
+                taille_case = size_pixel * factor
 
                 # Redéfinir la région de scroll
                 image_canvas.config(scrollregion=image_canvas.bbox("all"))
@@ -659,6 +664,8 @@ if __name__ == "__main__":
                 for widget in root.winfo_children():
                     try:
                         widget.configure(bg=bg_color, fg=fg_color)
+                        try : widget.config(insertbackground=fg_color)
+                        except : pass
                     except tk.TclError:
                         pass  # Certains widgets peuvent ne pas avoir d'options bg/fg
                     apply_colors(widget, bg_color, fg_color)  # Appliquer aux sous-widgets
@@ -682,6 +689,60 @@ if __name__ == "__main__":
             
             dark_mode = tk.Button(window,text="Dark mode",command=changer_couleur)
             dark_mode.place(x=ajuster_taille(1400, proportion_x), y=ajuster_taille(10, proportion_y))
+            
+            explain_label = tk.Label(window,width=ajuster_taille(38,proportion_x),text="\tBienvenue sur PixelPlace\n\rVous avez à votre disposition une palette de couleurs pour colorier cette toile vierge. Laissez libre cours à votre imagination ! \nAttention : à chaque fois que vous dessinez un pixel, vous ne pourrez pas en placer un autre avant la fin du timer en haut à droite.\nUn chat est également disponible pour communiquer avec les autres utilisateurs. Veuillez rester courtois et collaboratif afin de créer le dessin le plus joli possible.\nEn haut à gauche, vous trouverez votre nom d'utilisateur, que vous pouvez modifier à votre guise.\nEt surtout vive la France\n\r\t     Amusez-vous bien !" , wraplength=ajuster_taille(300, proportion_x),  # Ajustez cette valeur selon vos besoins
+                                    justify="left",
+                                    font=("Arial", ajuster_taille(10, proportion_y)))
+            explain_label.place(x=ajuster_taille(1150, proportion_x), y=ajuster_taille(50, proportion_y))
+
+            # Fonction pour charger une image depuis le PC
+            def charger_image_locale():
+                file_path = filedialog.askopenfilename(
+                    filetypes=[("Images", "*.png *.jpg *.jpeg *.gif *.bmp")]
+                )
+                if file_path:
+                    image = Image.open(file_path)
+                    # Redimensionner l'image pour tenir dans le canvas
+                    image = image.resize((
+                        ajuster_taille(350, proportion_x),
+                        ajuster_taille(350, proportion_y)
+                    ))
+                    photo = ImageTk.PhotoImage(image)
+                    aide_canva.delete("all")  # Effacer le contenu précédent
+                    aide_canva.create_image(0, 0, anchor="nw", image=photo)
+                    aide_canva.image = photo  # Garder une référence
+
+            # Fonction pour charger une image depuis URL
+            def charger_image_url():
+                url = simpledialog.askstring("URL", "Entrez l'URL de l'image (doit être un lien direct .jpg, .png, etc.):")
+                if url:
+                    try:
+                        response = requests.get(url)
+                        content_type = response.headers.get('content-type', '')
+                        print(response.content)
+                        image = Image.open(BytesIO(response.content))
+                        # Redimensionner l'image
+                        image = image.resize((
+                            ajuster_taille(350, proportion_x),
+                            ajuster_taille(350, proportion_y)
+                        ))
+                        photo = ImageTk.PhotoImage(image)
+                        aide_canva.delete("all")
+                        aide_canva.create_image(0, 0, anchor="nw", image=photo)
+                        aide_canva.image = photo
+                    except Exception as e:
+                        messagebox.showerror("Erreur", f"Impossible de charger l'image: {str(e)}")
+
+            # Créer les boutons
+            btn_locale = tk.Button(window, text="Charger image locale", command=charger_image_locale)
+            btn_locale.place(x=ajuster_taille(1150, proportion_x), y=ajuster_taille(790, proportion_y))
+
+            btn_url = tk.Button(window, text="Charger image URL", command=charger_image_url)
+            btn_url.place(x=ajuster_taille(1300, proportion_x), y=ajuster_taille(790, proportion_y))
+
+            
+            aide_canva = tk.Canvas(window, bg="white", width=ajuster_taille(350, proportion_x), height=ajuster_taille(350, proportion_y))
+            aide_canva.place(x=ajuster_taille(1150, proportion_x), y=ajuster_taille(430, proportion_y))
 
             # Lancement de la boucle principale
             window.mainloop()
