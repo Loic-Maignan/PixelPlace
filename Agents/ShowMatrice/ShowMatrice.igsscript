@@ -1,0 +1,24 @@
+/*
+* ShowMatrice app
+*/
+
+"Inputs" "Test inputs" {
+    ShowMatrice.CheckSize = 0
+    assert user "Changement de la taille de l'image afficher sur le witheboard en fonction de la taille de ce dernier"
+
+    ShowMatrice.Clear = 0
+    assert user "reinitialise l'image afficher sur le whitheboard et supprime les messages afficher"
+    assert ShowMatrice.init_Tableau = 100
+    assert ShowMatrice.init_Whitheboard = 0
+
+    ShowMatrice.Matrice = ""
+    assert user "Affiche l'image sur le witheboard et sur les clients"
+}
+
+
+
+"Services" "Test services" {
+    ClientJoueur.Chat("B812","Salut")
+    assert user "ajout du message "B812: Salut\r\n ---------------" dans la box a gauche dans tout les ClientJoueur"
+}
+
