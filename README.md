@@ -52,5 +52,3 @@ Le projet a été testé et utilisé uniquement sur un environnement Windows ave
    ```
 
 ---
-
-N'hésitez pas à adapter les instructions en fonction de vos besoins spécifiques ou à ajouter des sections supplémentaires si nécessaire. 😊
