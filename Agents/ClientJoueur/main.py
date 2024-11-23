@@ -505,8 +505,8 @@ if __name__ == "__main__":
             timer_label2.place(x=ajuster_taille(1270, proportion_x), y=ajuster_taille(10, proportion_y))
 
             # Grand Canvas pour l'image ou le dessin
-            image_canvas = tk.Canvas(window, bg="white", width=ajuster_taille(730, proportion_x), height=ajuster_taille(730, proportion_y))
-            image_canvas.place(x=ajuster_taille((wx-ajuster_taille(730, proportion_x))/2, proportion_x), y=ajuster_taille(50, proportion_y))
+            image_canvas = tk.Canvas(window, bg="white", width=730, height=730)
+            image_canvas.place(x=ajuster_taille((wx-ajuster_taille(730, proportion_x))/2, proportion_x), y=ajuster_taille(130, proportion_y))
 
             # Charger l'image PNG
             image_recu = None

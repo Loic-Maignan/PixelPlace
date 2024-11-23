@@ -65,6 +65,9 @@ def on_agent_event_callback(event, uuid, name, event_data, my_data):
             igs.output_set_impulsion("Start_Timer")
         if "Tableau" == name:
             igs.output_set_int("Init_Tableau",100)
+    if event == igs.AGENT_EXITED:
+        if "Whiteboard" == name:
+            igs.output_set_impulsion("Start_Timer")
 
 
     elif event == igs.AGENT_EXITED:

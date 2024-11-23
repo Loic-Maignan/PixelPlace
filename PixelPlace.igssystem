@@ -533,6 +533,10 @@
                         {
                             "name": "Init_Whiteboard",
                             "type": "IMPULSION"
+                        },
+                        {
+                            "name": "Start_Timer",
+                            "type": "IMPULSION"
                         }
                     ]
                 },
@@ -949,6 +953,150 @@
                 "plugin": "ingescape_class",
                 "uuid": "cc45bc11-7e75-41cf-9e5c-88c363f4b935",
                 "version": ""
+            },
+            {
+                "className": "EDE7",
+                "color": 0,
+                "definition": {
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "matrice",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "Mise_a_jour_matrice"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "nom",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "couleur",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "Chat"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "49a1247f-7eae-4085-b350-e5e88d570da7",
+                "version": ""
+            },
+            {
+                "className": "8602",
+                "color": 0,
+                "definition": {
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "matrice",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "Mise_a_jour_matrice"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "nom",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "couleur",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "Chat"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "e2cb43c1-c9db-4f0e-bad4-98d04cdcde01",
+                "version": ""
+            },
+            {
+                "className": "2A46",
+                "color": 0,
+                "definition": {
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "matrice",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "Mise_a_jour_matrice"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "nom",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "couleur",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "Chat"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "640bbce8-d0b4-4508-8d0d-1b0dda52e52c",
+                "version": ""
             }
         ]
     },
@@ -1063,50 +1211,6 @@
                 },
                 {
                     "data": {
-                        "duration": 100,
-                        "repeat": -1
-                    },
-                    "height": 112,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.timer",
-                    "uuid": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
-                    "width": 230,
-                    "x": -1518.0677286235434,
-                    "y": -96.5776883591376
-                },
-                {
-                    "agent": {
-                        "instances": [
-                            {
-                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.1.173",
-                                "isAttachedToCircle": false,
-                                "mac": "58:11:22:7E:5C:15",
-                                "uuid": "a5f241bd-f052-4eae-baf7-0c08ceb5a17d"
-                            },
-                            {
-                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.43.96",
-                                "isAttachedToCircle": false,
-                                "mac": "F4:26:79:40:2D:60",
-                                "uuid": "3faac7e0-f3fa-4aa8-8c9a-93434bd13de8"
-                            }
-                        ]
-                    },
-                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
-                    "comment": "",
-                    "height": 136,
-                    "name": "ShowMatrice",
-                    "simulationTime": 5000,
-                    "uuid": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                    "width": 250,
-                    "x": -1096.5585082414361,
-                    "y": -165.80227292753122
-                },
-                {
-                    "data": {
                         "entries": [
                         ],
                         "value_type": "IMPULSION"
@@ -1152,19 +1256,6 @@
                 },
                 {
                     "data": {
-                        "duration": 1000,
-                        "repeat": 0
-                    },
-                    "height": 112,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.timer",
-                    "uuid": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
-                    "width": 230,
-                    "x": -424.64260445409195,
-                    "y": -21.64312065373349
-                },
-                {
-                    "data": {
                         "entries": [
                             "PixelPlace"
                         ],
@@ -1192,6 +1283,55 @@
                     "width": 256,
                     "x": -756.3071745201892,
                     "y": 238.629153263548
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "276097ad-056d-47fe-aa33-fc51ef86286e"
+                            }
+                        ]
+                    },
+                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
+                    "comment": "",
+                    "height": 136,
+                    "name": "ShowMatrice",
+                    "simulationTime": 5000,
+                    "uuid": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                    "width": 250,
+                    "x": -1112.4879067453126,
+                    "y": -169.7472198129621
+                },
+                {
+                    "data": {
+                        "duration": 1000,
+                        "repeat": 0
+                    },
+                    "height": 112,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.timer",
+                    "uuid": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
+                    "width": 230,
+                    "x": -424.64260445409195,
+                    "y": -21.64312065373349
+                },
+                {
+                    "data": {
+                        "duration": 500,
+                        "repeat": -1
+                    },
+                    "height": 112,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.timer",
+                    "uuid": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                    "width": 230,
+                    "x": -1518.0677286235434,
+                    "y": -96.5776883591376
                 }
             ],
             "links": {
@@ -1247,30 +1387,6 @@
                         }
                     },
                     {
-                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "destinationIO": {
-                            "name": "CheckSize",
-                            "type": "INPUT"
-                        },
-                        "source": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
-                        "sourceIO": {
-                            "name": "output",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
-                        "destination": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
-                        "destinationIO": {
-                            "name": "trigger",
-                            "type": "INPUT"
-                        },
-                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "sourceIO": {
-                            "name": "Init_Whiteboard",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
                         "destination": "2370d114-8929-43c3-8380-5e0da0c02847",
                         "destinationIO": {
                             "name": "title",
@@ -1279,18 +1395,6 @@
                         "source": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
                         "sourceIO": {
                             "name": "value",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
-                        "destination": "2609a07d-a8b7-488c-833e-65c34c2537ab",
-                        "destinationIO": {
-                            "name": "trigger",
-                            "type": "INPUT"
-                        },
-                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "sourceIO": {
-                            "name": "Init_Whiteboard",
                             "type": "OUTPUT"
                         }
                     },
@@ -1307,30 +1411,6 @@
                         }
                     },
                     {
-                        "destination": "1ef913fa-3163-4b85-987e-956c5950cc21",
-                        "destinationIO": {
-                            "name": "trigger",
-                            "type": "INPUT"
-                        },
-                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "sourceIO": {
-                            "name": "Start_Timer",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
-                        "destination": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
-                        "destinationIO": {
-                            "name": "start",
-                            "type": "INPUT"
-                        },
-                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "sourceIO": {
-                            "name": "Start_Timer",
-                            "type": "OUTPUT"
-                        }
-                    },
-                    {
                         "destination": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
                         "destinationIO": {
                             "name": "start",
@@ -1343,7 +1423,43 @@
                         }
                     },
                     {
-                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "destination": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                        "destinationIO": {
+                            "name": "start",
+                            "type": "INPUT"
+                        },
+                        "source": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                        "sourceIO": {
+                            "name": "Start_Timer",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                        "sourceIO": {
+                            "name": "Init_Whiteboard",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "2609a07d-a8b7-488c-833e-65c34c2537ab",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                        "sourceIO": {
+                            "name": "Init_Whiteboard",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "7098c944-4704-4aa1-85e3-6c7401c89214",
                         "destinationIO": {
                             "name": "Clear",
                             "type": "INPUT"
@@ -1351,6 +1467,30 @@
                         "source": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
                         "sourceIO": {
                             "name": "output",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                        "destinationIO": {
+                            "name": "CheckSize",
+                            "type": "INPUT"
+                        },
+                        "source": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                        "sourceIO": {
+                            "name": "output",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "1ef913fa-3163-4b85-987e-956c5950cc21",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "7098c944-4704-4aa1-85e3-6c7401c89214",
+                        "sourceIO": {
+                            "name": "Start_Timer",
                             "type": "OUTPUT"
                         }
                     }
