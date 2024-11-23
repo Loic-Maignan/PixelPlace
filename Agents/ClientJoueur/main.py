@@ -24,6 +24,7 @@ from PIL import Image, ImageTk  # Importation nécessaire pour gérer les images
 import io
 import requests
 from io import BytesIO
+import os
 
 from new import *
 
@@ -509,7 +510,7 @@ if __name__ == "__main__":
 
             # Charger l'image PNG
             image_recu = None
-            nom_image = "init.png"
+            nom_image = os.path.abspath("init.png")
             image_recu = Image.open(nom_image)  # Image de la grille
             image_originale_width, image_originale_height = image_recu.size
 

@@ -956,29 +956,6 @@
         {
             "children": [
                 {
-                    "agent": {
-                        "instances": [
-                            {
-                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.43.96",
-                                "isAttachedToCircle": false,
-                                "mac": "F4:26:79:40:2D:60",
-                                "uuid": "3faac7e0-f3fa-4aa8-8c9a-93434bd13de8"
-                            }
-                        ]
-                    },
-                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
-                    "comment": "",
-                    "height": 136,
-                    "name": "ShowMatrice",
-                    "simulationTime": 5000,
-                    "uuid": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                    "width": 250,
-                    "x": -742.8945082414365,
-                    "y": -40.23427292753129
-                },
-                {
                     "data": {
                         "data_decoder": "BINARY",
                         "msg_type": "",
@@ -1027,6 +1004,13 @@
                     "agent": {
                         "instances": [
                             {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.43.13",
+                                "isAttachedToCircle": false,
+                                "uuid": "d81da76b-2ce2-4731-ad76-73ba1c29b431"
+                            },
+                            {
                                 "commandLine": "\"G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\Whiteboard.win64\\Whiteboard\\Whiteboard.exe\"",
                                 "hostname": "FireFall-PC",
                                 "ip": "192.168.1.173",
@@ -1045,21 +1029,6 @@
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
                                 "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.41.149",
-                                "isAttachedToCircle": false,
-                                "mac": "14:F6:D8:3F:B7:BD",
-                                "uuid": "d385ae08-c5c5-4d58-9a01-af83a8532370"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.43.13",
-                                "isAttachedToCircle": false,
-                                "uuid": "d81da76b-2ce2-4731-ad76-73ba1c29b431"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
                                 "ip": "192.168.1.48",
                                 "isAttachedToCircle": false,
                                 "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
@@ -1071,6 +1040,14 @@
                                 "isAttachedToCircle": false,
                                 "mac": "F4:26:79:40:2D:60",
                                 "uuid": "15913cbf-abd3-4b7f-8f10-7671936fbf9f"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.41.149",
+                                "isAttachedToCircle": false,
+                                "mac": "14:F6:D8:3F:B7:BD",
+                                "uuid": "d385ae08-c5c5-4d58-9a01-af83a8532370"
                             }
                         ]
                     },
@@ -1086,37 +1063,73 @@
                 },
                 {
                     "data": {
-                        "entries": [
-                            "PixelPlace"
-                        ],
-                        "value_type": "STRING"
+                        "duration": 100,
+                        "repeat": -1
                     },
-                    "height": 79,
+                    "height": 112,
                     "name": "",
-                    "tool": "com.ingescape.circle.tool.writer",
-                    "uuid": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
-                    "width": 256,
-                    "x": -787.074207075434,
-                    "y": 210.00265067786637
-                },
-                {
-                    "data": {
-                        "entries": [
-                            "false"
-                        ],
-                        "value_type": "BOOL"
-                    },
-                    "height": 79,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.writer",
-                    "uuid": "2609a07d-a8b7-488c-833e-65c34c2537ab",
-                    "width": 256,
-                    "x": -781.651174520189,
-                    "y": 308.90115326354805
+                    "tool": "com.ingescape.circle.tool.timer",
+                    "uuid": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                    "width": 230,
+                    "x": -1518.0677286235434,
+                    "y": -96.5776883591376
                 },
                 {
                     "agent": {
                         "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "a5f241bd-f052-4eae-baf7-0c08ceb5a17d"
+                            },
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.43.96",
+                                "isAttachedToCircle": false,
+                                "mac": "F4:26:79:40:2D:60",
+                                "uuid": "3faac7e0-f3fa-4aa8-8c9a-93434bd13de8"
+                            }
+                        ]
+                    },
+                    "class": "98e4f204-5fbe-4bb4-8230-fa44c5e4a135",
+                    "comment": "",
+                    "height": 136,
+                    "name": "ShowMatrice",
+                    "simulationTime": 5000,
+                    "uuid": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                    "width": 250,
+                    "x": -1096.5585082414361,
+                    "y": -165.80227292753122
+                },
+                {
+                    "data": {
+                        "entries": [
+                        ],
+                        "value_type": "IMPULSION"
+                    },
+                    "height": 44,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "1ef913fa-3163-4b85-987e-956c5950cc21",
+                    "width": 256,
+                    "x": -781.2442909863707,
+                    "y": -12.325729506420828
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "dd0ecee1-54bb-4fdd-a123-4a4598f4efab"
+                            },
                             {
                                 "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
                                 "hostname": "FireFall-PC",
@@ -1134,32 +1147,51 @@
                     "simulationTime": 5000,
                     "uuid": "4b2a28f3-8207-4e52-bbe8-0aaf308c316b",
                     "width": 250,
-                    "x": -433.3717862229662,
-                    "y": 19.128440632230877
+                    "x": -753.6277862229658,
+                    "y": -166.34355936776916
                 },
                 {
                     "data": {
-                    },
-                    "height": 80,
-                    "name": "",
-                    "tool": "com.ingescape.circle.tool.startsimu",
-                    "uuid": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
-                    "width": 80,
-                    "x": -1168.2556605892332,
-                    "y": 23.98937207539268
-                },
-                {
-                    "data": {
-                        "duration": 500,
-                        "repeat": -1
+                        "duration": 1000,
+                        "repeat": 0
                     },
                     "height": 112,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.timer",
-                    "uuid": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                    "uuid": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
                     "width": 230,
-                    "x": -1057.985683619172,
-                    "y": -117.31285119681885
+                    "x": -424.64260445409195,
+                    "y": -21.64312065373349
+                },
+                {
+                    "data": {
+                        "entries": [
+                            "PixelPlace"
+                        ],
+                        "value_type": "STRING"
+                    },
+                    "height": 79,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "57e06fee-8652-43f4-8bc8-2e9ffb31a2de",
+                    "width": 256,
+                    "x": -759.4262070754337,
+                    "y": 131.66665067786636
+                },
+                {
+                    "data": {
+                        "entries": [
+                            "false"
+                        ],
+                        "value_type": "BOOL"
+                    },
+                    "height": 79,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.writer",
+                    "uuid": "2609a07d-a8b7-488c-833e-65c34c2537ab",
+                    "width": 256,
+                    "x": -756.3071745201892,
+                    "y": 238.629153263548
                 }
             ],
             "links": {
@@ -1212,28 +1244,6 @@
                         "sourceIO": {
                             "name": "ui_error",
                             "type": "OUTPUT"
-                        }
-                    },
-                    {
-                        "destination": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
-                        "destinationIO": {
-                            "name": "start",
-                            "type": "INPUT"
-                        },
-                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
-                        "sourceIO": {
-                            "type": "TRIGGER_OUT"
-                        }
-                    },
-                    {
-                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
-                        "destinationIO": {
-                            "name": "Clear",
-                            "type": "INPUT"
-                        },
-                        "source": "61a5c03d-a6c8-4587-a1d4-4821f83ad35c",
-                        "sourceIO": {
-                            "type": "TRIGGER_OUT"
                         }
                     },
                     {
@@ -1293,6 +1303,54 @@
                         "source": "2609a07d-a8b7-488c-833e-65c34c2537ab",
                         "sourceIO": {
                             "name": "value",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "1ef913fa-3163-4b85-987e-956c5950cc21",
+                        "destinationIO": {
+                            "name": "trigger",
+                            "type": "INPUT"
+                        },
+                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "sourceIO": {
+                            "name": "Start_Timer",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "927e48e5-12f2-4bfe-bed8-4b6898fe24ae",
+                        "destinationIO": {
+                            "name": "start",
+                            "type": "INPUT"
+                        },
+                        "source": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "sourceIO": {
+                            "name": "Start_Timer",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
+                        "destinationIO": {
+                            "name": "start",
+                            "type": "INPUT"
+                        },
+                        "source": "1ef913fa-3163-4b85-987e-956c5950cc21",
+                        "sourceIO": {
+                            "name": "value",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "a1dd23b2-738e-4a42-93ca-b9db5449a204",
+                        "destinationIO": {
+                            "name": "Clear",
+                            "type": "INPUT"
+                        },
+                        "source": "fc325fb0-f9c3-47dd-ae81-a91930cfc4bf",
+                        "sourceIO": {
+                            "name": "output",
                             "type": "OUTPUT"
                         }
                     }

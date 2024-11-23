@@ -12,7 +12,7 @@ import random
 Colors = ["#6d0019","#bb0038","#ff4500","#ffaa00","#fcd730","#fff8b6","#00a46a","#02cc7b",
                         "#7bef52","#01766d","#009faa","#02cbbf","#2650a6","#3591ec","#50e9f6","#4639c1",
                         "#6c5dff","#96b2fa","#801da2","#b749c0","#e6aafc","#dd107d","#fe3881","#ff98ab",
-                        "#6d482e","#9a6927","#ffb270","#000000","#525252","#898e91","#d4d7d8","#ffffff"]
+                        "#6d482e","#9a6927","#ffb270","#525252","#898e91","#d4d7d8"]
 
 MatriceOld = None
 SizeMatrice = None
@@ -62,6 +62,7 @@ def on_agent_event_callback(event, uuid, name, event_data, my_data):
             send_IMG(uuid)
         if "Whiteboard" == name:
             igs.output_set_impulsion("Init_Whiteboard")
+            igs.output_set_impulsion("Start_Timer")
         if "Tableau" == name:
             igs.output_set_int("Init_Tableau",100)
 
@@ -222,7 +223,8 @@ if __name__ == "__main__":
     igs.input_create("Clear", igs.IMPULSION_T, None)
 
     igs.output_create("Init_Tableau", igs.INTEGER_T, None)
-    igs.output_create("Init_Whiteboard", igs.STRING_T, None)
+    igs.output_create("Init_Whiteboard", igs.IMPULSION_T, None)
+    igs.output_create("Start_Timer", igs.IMPULSION_T, None)
 
     igs.service_init("Chat", tchat, None)
     igs.service_arg_add("Chat", "nom", igs.STRING_T)
