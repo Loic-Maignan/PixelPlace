@@ -1097,6 +1097,54 @@
                 "plugin": "ingescape_class",
                 "uuid": "640bbce8-d0b4-4508-8d0d-1b0dda52e52c",
                 "version": ""
+            },
+            {
+                "className": "021B",
+                "color": 0,
+                "definition": {
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "matrice",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "taille_matrice",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "taille_pixel",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "Mise_a_jour_matrice"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "nom",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "couleur",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "Chat"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "9fa5583b-557c-4218-91c9-a3dd726762dd",
+                "version": ""
             }
         ]
     },
@@ -1152,6 +1200,14 @@
                     "agent": {
                         "instances": [
                             {
+                                "commandLine": "\"G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe\"",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.43.96",
+                                "isAttachedToCircle": false,
+                                "mac": "F4:26:79:40:2D:60",
+                                "uuid": "15913cbf-abd3-4b7f-8f10-7671936fbf9f"
+                            },
+                            {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
                                 "hostname": "DESKTOP-8LMA51O",
                                 "ip": "192.168.43.13",
@@ -1177,25 +1233,17 @@
                             {
                                 "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
                                 "hostname": "DESKTOP-8LMA51O",
-                                "ip": "192.168.1.48",
-                                "isAttachedToCircle": false,
-                                "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
-                            },
-                            {
-                                "commandLine": "\"G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe\"",
-                                "hostname": "FireFall-PC",
-                                "ip": "192.168.43.96",
-                                "isAttachedToCircle": false,
-                                "mac": "F4:26:79:40:2D:60",
-                                "uuid": "15913cbf-abd3-4b7f-8f10-7671936fbf9f"
-                            },
-                            {
-                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
-                                "hostname": "DESKTOP-8LMA51O",
                                 "ip": "192.168.41.149",
                                 "isAttachedToCircle": false,
                                 "mac": "14:F6:D8:3F:B7:BD",
                                 "uuid": "d385ae08-c5c5-4d58-9a01-af83a8532370"
+                            },
+                            {
+                                "commandLine": "C:\\Users\\aloyk\\Documents\\UPSSITECH\\3A\\interaction_distribue\\PixelPlace\\Whiteboard\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-8LMA51O",
+                                "ip": "192.168.1.48",
+                                "isAttachedToCircle": false,
+                                "uuid": "6a4d6451-379e-408e-986f-3b555634e9c1"
                             }
                         ]
                     },
@@ -1229,18 +1277,18 @@
                             {
                                 "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
                                 "hostname": "FireFall-PC",
-                                "ip": "192.168.1.173",
-                                "isAttachedToCircle": false,
-                                "mac": "58:11:22:7E:5C:15",
-                                "uuid": "dd0ecee1-54bb-4fdd-a123-4a4598f4efab"
-                            },
-                            {
-                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
-                                "hostname": "FireFall-PC",
                                 "ip": "192.168.43.96",
                                 "isAttachedToCircle": false,
                                 "mac": "F4:26:79:40:2D:60",
                                 "uuid": "4f181ada-4095-4c5d-9721-beed970a8d18"
+                            },
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "dd0ecee1-54bb-4fdd-a123-4a4598f4efab"
                             }
                         ]
                     },
@@ -1319,6 +1367,29 @@
                     "width": 230,
                     "x": -424.64260445409195,
                     "y": -21.64312065373349
+                },
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "G:\\Mon Drive\\Ecoles\\Upssitech\\3A\\Interaction distribuee\\EnvPixelPlace\\Scripts\\python.exe ./main.py Ethernet 5670",
+                                "hostname": "FireFall-PC",
+                                "ip": "192.168.1.173",
+                                "isAttachedToCircle": false,
+                                "mac": "58:11:22:7E:5C:15",
+                                "uuid": "edd937fc-dcfe-4448-98d0-c2eaf9425f80"
+                            }
+                        ]
+                    },
+                    "class": "9fa5583b-557c-4218-91c9-a3dd726762dd",
+                    "comment": "",
+                    "height": 100,
+                    "name": "021B",
+                    "simulationTime": 5000,
+                    "uuid": "1180ff1b-019e-4b38-a193-9bc7a2e2b502",
+                    "width": 250,
+                    "x": -765.4615557714459,
+                    "y": 174.54656714922254
                 },
                 {
                     "data": {
